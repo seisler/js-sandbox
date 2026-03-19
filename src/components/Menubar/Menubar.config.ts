@@ -9,6 +9,7 @@ export enum EMenubarItem {
 
 interface MenubarItem {
   id: EMenubarItem,
+  text: string,
   menuItems: MenuItem[],
 }
 
@@ -19,6 +20,7 @@ type MenubarConfig = {
 export const menuConfig: MenubarConfig = Object.freeze({
   [EMenubarItem.files]: {
     id: EMenubarItem.files,
+    text: 'Files',
     menuItems: [
       {
         id: 'save',
@@ -32,6 +34,7 @@ export const menuConfig: MenubarConfig = Object.freeze({
   },
   [EMenubarItem.go]: {
     id: EMenubarItem.go,
+    text: 'Go',
     menuItems: [
       {
         id: 'go-to-definition',
@@ -45,6 +48,7 @@ export const menuConfig: MenubarConfig = Object.freeze({
   },
   [EMenubarItem.help]: {
     id: EMenubarItem.help,
+    text: 'Help',
     menuItems: [
       {
         id: 'update-check',

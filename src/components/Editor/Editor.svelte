@@ -44,7 +44,6 @@
 	
 <style>
   .editor {
-    font-size: 32px;
     height: 100%;
   }
 </style>

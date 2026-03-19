@@ -3,7 +3,7 @@
   import Button from '../Button/Button.svelte';
   import type { MenuProps } from './Menu.types';
 
-  /* Props & State */
+  /* ---- Props & State ---- */
   
   let {
     id,
@@ -31,7 +31,7 @@
       <Button
         role="menuitem"
         tabindex={-1}
-        isTransparent
+        variant="ghost"
         onclick={() => console.log('click on: ', id)}
       > 
         {text}
@@ -42,18 +42,18 @@
 
 <style>
   ul[role="menu"] {
-    padding: 0.5em 0.2rem;
+    padding: 0.2rem 0.1em;
   }
 
   li[role="none"] {
     display: flex;
     cursor: default;
-    padding-block: 0.8em;
+    padding-block: 0.1em;
     padding-inline: 0.5rem;
   }
 
   li[role="none"]:hover {
-    background-color: var(--color-border-base);
+    background-color: var(--clr-border);
     border-radius: 2px;
   }
 </style>

@@ -25,15 +25,15 @@ export const menuConfig: ToolbarMenuConfig = Object.freeze({
     menuItems: [
       {
         id: 'theme',
-        text: 'theme',
+        text: 'Theme',
       },
       {
         id: 'settings',
-        text: 'settings',
+        text: 'Settings',
       },
       {
         id: 'update-check',
-        text: 'check for updates'
+        text: 'Check for updates'
       }
     ]
   }

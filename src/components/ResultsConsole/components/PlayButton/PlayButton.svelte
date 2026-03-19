@@ -2,13 +2,14 @@
   import PlayIcon from './icons/PlayIcon.svelte';
   import Button from '../../../ui/Button/Button.svelte';
 
-  let { onClick } = $props();
+  let { onclick } = $props();
 </script>
 
 <Button
-  ariaLabel="Run code"
-  onClick={onClick}
-  isTransparent={false}
+  aria-label="Run code"
+  align="center"
+  {onclick}
+  variant="normal"
 >
   <PlayIcon />
 </Button>

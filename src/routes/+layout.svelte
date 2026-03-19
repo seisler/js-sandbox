@@ -19,22 +19,30 @@
 
 <style>
   :global(:root) {
-    --color-base: #fff;
-    --color-base-secondary: #f38518;
-    --color-btn-base: #f38518;
-    --color-bg-base: #080c0e;
-    --color-bg-menu-base: #181a1b;
-    --color-border-base: #484538;
-    --editor-font: 'Fira Code', ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
-    --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
-      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 
-      'Helvetica Neue', sans-serif;
+    /* --- TYPOGRAPHY --- */
+    --font-family-mono: 'Fira Code', ui-monospace, monospace;
+    --font-family-sans: system-ui, -apple-system, sans-serif;
+
+    /* --- COLORS (BRAND) --- */
+    --clr-brand: #f38518;
+    
+    /* --- COLORS (INTERFACES) --- */
+    --clr-bg-main: #080c0e;      /* Deep background */
+    --clr-bg-surface: #181a1b;   /* Menus, cards, modals */
+    
+    --clr-txt-main: #ffffff;
+    --clr-txt-muted: #a0a0a0;    /* For secondary text */
+
+    --clr-border: #484538;
+
+    /* --- COMPONENT ALIASES --- */
+    --btn-primary-bg: var(--clr-brand);
+    --btn-primary-txt: var(--clr-bg-main);
   }
 
   /* Add styles to all app menu*/
   :global(ul[role="menu"]) {
-    /*position: absolute;*/
-    background-color: var(--color-bg-menu-base);
+    background-color: var(--clr-bg-surface);
     min-width: 200px;
     line-height: 1.2;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.01), 
@@ -52,13 +60,13 @@
     margin: 0;
     padding: 0;
     border: none;
-    background-color: var(--color-bg-base);
+    background-color: var(--clr-bg-main);
     overflow: hidden;
   }
 
   :global(body) {
-    font-family: var(--font-main);
-    color: var(--color-base);
+    font-family: var(--font-family-sans);
+    color: var(--clr-txt-main);
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -92,7 +100,7 @@
   
   .menubar {
     grid-area: menubar;
-    background-color: var(--color-bg-base);
+    background-color: var(--clr-bg-main);
   }
 
   .toolbar {
@@ -100,6 +108,6 @@
     display: flex;
     align-items: end;
     position: relative;
-    background-color: var(--color-bg-base);
+    background-color: var(--clr-bg-main);
   }
 </style>

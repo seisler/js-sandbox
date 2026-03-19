@@ -3,11 +3,11 @@
   import Menu from '../ui/Menu/Menu.svelte';
   import { EMenubarItem, menuConfig } from './Menubar.config';
 
-  /* Typescript */
+  /* ---- Typescript ---- */
 
   type CurrentMenuItem = EMenubarItem | null;
 
-  /* State & Props */
+  /* ---- State & Props ---- */
 
   let currentItemMenuOpened: CurrentMenuItem = $state(null);
   let menuRef: HTMLUListElement | undefined = $state();
@@ -18,9 +18,12 @@
     }
   })
 
-  /* Javascript */
+  /* ---- Javascript ----*/
   
-  /* Remove opened menu from DOM on focus lost */
+  /**
+   * Unset currentItemMenuOpened state
+   * to remove opened menu from DOM on focus lost.
+   */
   function handleOnFocusOut(e: FocusEvent & { currentTarget: HTMLUListElement }) {
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       currentItemMenuOpened = null;
@@ -30,18 +33,21 @@
 
 <ul role="menubar" aria-label="Actions menu">
   {#each Object.values(menuConfig) as menubarItem}
-    <li role="none" class:is-open={currentItemMenuOpened === menubarItem.id}>
+    <li
+      role="none"
+      class:is-open={currentItemMenuOpened === menubarItem.id}
+    >
       <Button
         id={`actionsbar-item-${menubarItem.id}`}
         role="menuitem"
         tabindex={0}
+        variant="ghost"
         aria-haspopup="menu"
         aria-controls={`actionsbar-menu-${menubarItem.id}`}
         aria-expanded={currentItemMenuOpened === menubarItem.id}
-        isTransparent
         onclick={() => {currentItemMenuOpened = menubarItem.id}}
       >
-        {menubarItem.id}
+        {menubarItem.text}
       </Button>
 
       {#if currentItemMenuOpened ===  menubarItem.id}
@@ -67,7 +73,8 @@
   }
 
   li + li {
-    padding-inline: 1rem; /* give space among li tags */
+    /* give space among li tags */
+    padding-inline: 1rem;
   }
 
   li[role="none"] {
@@ -78,12 +85,12 @@
   }
 
   li[role="none"].is-open {
-    background-color: var(--color-border-base);
+    background-color: var(--clr-border);
     border-radius: 2px;
   }
 
   :global(.menubar-menu-position) {
-    top: 1.75rem;
+    top: 1.9rem;
     position: absolute;
     left: 0;
   }
