@@ -25,14 +25,15 @@
   tabindex={-1}
 >
   {#each Object.values(menuConfig) as { id, Icon, menuItems, label }}
-    <li role="none">
+    <li role="none" class:selected={currentMenuOpen === id}>
       <Button
         role="menuitem"
         tabindex={0}
         aria-haspopup="menu"
         aria-controls={`toolbar-menu-${id}`}
         aria-expanded={currentMenuOpen === id}
-        isTransparent
+        variant="ghost"
+        align="center"
         onclick={() => { currentMenuOpen = id }}
       >
         <Icon />
@@ -40,7 +41,7 @@
       {#if currentMenuOpen === id}
         <Menu
           {id}
-          class="toolsmenu"
+          class="toolsmenu-menu-position"
           ariaLabel={label}
           items={menuItems}
           bind:domRef={menuRef}
@@ -61,15 +62,18 @@
 
   li[role="none"] {
     padding-block: 0.8em; /* em because of block padding is affected by text size, should be attached to parent font-size */
-    padding-inline: 0.4rem; /* rem because side padding is not affected by text size */
     white-space: nowrap; /* ensure menu items text does not brake line */
     overflow: hidden;
     cursor: pointer;
   }
 
-  :global(.toolsmenu) {
+  .selected {
+    background-color: var(--clr-border);
+  }
+
+  :global(.toolsmenu-menu-position) {
     position: absolute;
-    left: 3rem;
-    bottom: 3rem;
+    left: 2rem;
+    bottom: 3.2rem;
   }
 </style>

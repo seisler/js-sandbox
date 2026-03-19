@@ -6,12 +6,10 @@
   }
 </script>
 
-<PlayButton onClick={handleOnPlayClick} />
+<PlayButton onclick={handleOnPlayClick} />
 <section class="result">
-// here it comes the Result
 </section>
 <section class="console">
-// here it comes the console
 </section>
 
 <style>
@@ -22,7 +20,7 @@
 
   .result {
     height: 45%;
-    border-bottom: 0.5px solid var(--color-border-base);
+    border-bottom: 0.5px solid var(--clr-border);
   }
 
   .console {

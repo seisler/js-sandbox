@@ -38,11 +38,11 @@
   }
 
   .console-container {
-    color: var(--color-base);
+    color: var(--clr-txt-main);
     display: flex;
     flex-direction: column;
     padding-left: 0.2rem;
     width: 40%;
-    background-color: var(--color-bg-base);
+    background-color: var(--clr-bg-main);
   }
 </style>
