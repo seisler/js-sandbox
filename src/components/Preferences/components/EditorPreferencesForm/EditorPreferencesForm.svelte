@@ -129,7 +129,7 @@
 
   .c-editor-preferences-form__select {
     appearance: none;
-    background-image: url('../../../assets/chevron-down-right.svg');
+    background-image: url('$assets/chevron-down-right.svg');
     background-repeat: no-repeat;
     background-position: right 0.7rem center;
     background-size: 1rem;
