@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  import Button from '../Button/Button.svelte';
+  import Button from '$components/ui/Button/Button.svelte';
   import type { MenuProps } from './Menu.types';
 
   /* ---- Props & State ---- */

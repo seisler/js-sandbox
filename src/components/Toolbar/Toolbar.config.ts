@@ -1,22 +1,7 @@
-import type { Component } from 'svelte';
-import type { MenuItem } from '../ui/Menu/Menu.types';
 import EngineIcon from './icons/EngineIcon.svelte';
-import { EPreferencesSection, preferencesState } from '../Preferences/Preferences.svelte.ts';
-
-export enum EToolbarItem {
-  toolMenu = 'tool-menu',
-}
-
-type ToolbarItem = {
-  id: EToolbarItem,
-  label: string,
-  Icon: Component,
-  menuItems: MenuItem[],
-}
-
-type ToolbarMenuConfig = {
-  [K in EToolbarItem]: ToolbarItem;
-}
+import { preferencesState } from '$components/Preferences/Preferences.svelte.ts';
+import { EToolbarItem, type ToolbarMenuConfig } from './Toolbar.type.ts';
+import { EPreferencesSection } from '$components/Preferences/Preferences.type.ts';
 
 export const menuConfig: ToolbarMenuConfig = Object.freeze({
   [EToolbarItem.toolMenu]: {

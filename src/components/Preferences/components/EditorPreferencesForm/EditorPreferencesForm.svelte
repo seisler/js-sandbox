@@ -23,7 +23,10 @@
   /* ---- Javascript ---- */
 
   function submitForm(e: Event) {
+    e.preventDefault();
     if (validation.success) {
+      // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+      //greetMsg = await invoke("greet", { name });
       console.log('Form valid, should call Rust at this point');
     }
   }

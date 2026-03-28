@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from 'svelte/transition'
-  import Button from '../ui/Button/Button.svelte';
+  import Button from '$components/ui/Button/Button.svelte';
   import { preferencesState } from './Preferences.svelte.ts';
   import CloseIcon from './icons/CloseIcon.svelte';
   import Navigation from './components/Navigation/Navigation.svelte';

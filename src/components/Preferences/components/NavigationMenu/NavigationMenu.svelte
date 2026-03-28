@@ -1,6 +1,6 @@
 <script lang="ts">
   
-  import Button from '../../../ui/Button/Button.svelte';
+  import Button from '$components/ui/Button/Button.svelte';
 
   /* ---- State & Props ---- */
 

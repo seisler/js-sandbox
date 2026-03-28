@@ -1,6 +1,6 @@
 <script lang="ts">
   import PlayIcon from './icons/PlayIcon.svelte';
-  import Button from '../../../ui/Button/Button.svelte';
+  import Button from '$components/ui/Button/Button.svelte';
 
   let { onclick } = $props();
 </script>

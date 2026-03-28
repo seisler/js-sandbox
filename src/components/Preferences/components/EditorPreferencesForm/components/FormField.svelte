@@ -1,5 +1,7 @@
 <script lang="ts">
-  let { id, children, error, label, subLabel } = $props()
+  import type { FormFieldProps } from './FormField.type';
+
+  let { id, children, error, label, subLabel }: FormFieldProps = $props()
 </script>
 
 <label class="c-form-field__label" for={id}>

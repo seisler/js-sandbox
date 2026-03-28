@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Accordion from '../../../ui/Accordion/Accordion.svelte';
+  import Accordion from '$components/ui/Accordion/Accordion.svelte';
   import NavigationMenu from '../NavigationMenu/NavigationMenu.svelte';
   import { navigationConfig } from './Navigation.config';
 </script>

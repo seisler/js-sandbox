@@ -1,22 +1,6 @@
 <script lang="ts">
 
-  import type { Snippet } from 'svelte';
-  import type { HTMLButtonAttributes } from 'svelte/elements';
-
-  /* ---- Typescript ---- */
-
-  type ComponentProps = {
-    id?: string,
-    role?: string,
-    children: Snippet,
-    tabindex?: number, // Only buttons from a menu should have tabindex. Button's tabindex default is 0.
-    variant?: 'normal' | 'ghost',
-    align?: 'start' | 'center' | 'end',
-    class?: string,
-  }
-
-  type ButtonProps = ComponentProps 
-    & Omit<HTMLButtonAttributes, 'form' | 'role' | 'type' | 'tabindex' | 'id'> 
+  import type { ButtonProps } from './Button.type';
 
   /* ---- State & Props ---- */
   
@@ -78,13 +62,17 @@
   }
 
   .ghost {
-    /* all: unset; @todo check this when A11y will be revised */
     color: var(--clr-txt-main);
     background-color: transparent !important;
   }
 
   .ghost:active {
     transform: scale(0.95) !important;
+  }
+
+  .ghost:focus {
+    outline: none;
+    text-decoration: none;
   }
 
   /* ---- Content Position ---- */

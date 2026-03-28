@@ -1,19 +1,4 @@
-import type { MenuItem } from '../../../ui/Menu/Menu.types';
-
-export enum ENavigationSection {
-  appearance = 'appearance',
-  texteditor = 'texteditor',
-}
-
-interface NavigationItem {
-  id: ENavigationSection,
-  label: string,
-  menuItems: MenuItem[],
-}
-
-type NavigationConfig = {
-  [K in ENavigationSection]: NavigationItem;
-}
+import { type NavigationConfig, ENavigationSection } from './Navigation.type'
 
 export const navigationConfig: NavigationConfig = Object.freeze({
   [ENavigationSection.appearance]: {
