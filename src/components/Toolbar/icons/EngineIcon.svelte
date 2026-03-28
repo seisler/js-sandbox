@@ -7,7 +7,8 @@
   } = $props();
 </script>
 
-<svg 
+<svg
+  aria-hidden="true"
   width={size} 
   height={size} 
   viewBox="0 0 32 32" 
@@ -15,7 +16,7 @@
   xmlns="http://www.w3.org/2000/svg"
   {...rest}
 >
-    <path 
+    <path
       stroke={color} 
       stroke-width={strokeWidth} 
       stroke-linecap="round" 
@@ -27,7 +28,7 @@
          c0.5-1.6,1.5-2.7,2.6-2.7s2.1,1.1,2.6,2.7c1.7-0.3,3.2-1,4.6-1.9c-0.8-1.5-0.9-3-0.1-3.8c0.8-0.8,2.2-0.7,3.8,0.1
          c0.9-1.4,1.6-2.9,1.9-4.6C27.1,18.1,26,17.1,26,16S27.1,13.9,28.7,13.4z"
     />
-    <circle 
+    <circle
       stroke={color} 
       stroke-width={strokeWidth} 
       stroke-linecap="round" 

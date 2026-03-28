@@ -1,23 +1,34 @@
 <script lang="ts">
-    import Menubar from "../components/Menubar/Menubar.svelte";
-    import Toolbar from "../components/Toolbar/Toolbar.svelte";
+    import Menubar from '../components/Menubar/Menubar.svelte';
+    import Preferences from '../components/Preferences/Preferences.svelte';
+    import Toolbar from '../components/Toolbar/Toolbar.svelte';
+    import { preferencesState } from '../components/Preferences/Preferences.svelte.ts';
     
+    /* ---- State ---- */
     let { children } = $props();
+    let dialogRef: HTMLDialogElement | undefined = $state();
 </script>
 
-<div role="application" class="application-container">
-  <div class="menubar">
+<div role="application" class="l-application">
+  <div class="l-menubar">
     <Menubar />
   </div>
-  <div class="toolbar">
+  <div class="l-toolbar">
     <Toolbar />
   </div>
   <main>
-    {@render children()}
+    {@render children?.()}
   </main>
 </div>
 
+{#if preferencesState.isOpen }
+  <Preferences bind:domRef={dialogRef} />
+{/if}
+
 <style>
+  /* ---- GLOBAL STYLES ---- */
+
+  /* CSS Token */
   :global(:root) {
     /* --- TYPOGRAPHY --- */
     --font-family-mono: 'Fira Code', ui-monospace, monospace;
@@ -31,7 +42,9 @@
     --clr-bg-surface: #181a1b;   /* Menus, cards, modals */
     
     --clr-txt-main: #ffffff;
+    --clr-txt-contrast: #000000;
     --clr-txt-muted: #a0a0a0;    /* For secondary text */
+    --clr-txt-error: #DB1A1A;
 
     --clr-border: #484538;
 
@@ -40,20 +53,6 @@
     --btn-primary-txt: var(--clr-bg-main);
   }
 
-  /* Add styles to all app menu*/
-  :global(ul[role="menu"]) {
-    background-color: var(--clr-bg-surface);
-    min-width: 200px;
-    line-height: 1.2;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.01), 
-              0 10px 25px rgba(0, 0, 0, 0.5);
-    font-size: 0.8rem;
-    border-radius: 4px; /* fixed size for solid borders */
-    z-index: 100;
-    padding-inline-start: 0;
-    border: none;
-  }
-  
   :global(html, body) {
     height: 100%;
     width: 100%;
@@ -67,17 +66,18 @@
   :global(body) {
     font-family: var(--font-family-sans);
     color: var(--clr-txt-main);
-    margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Unset some UL defaults for menu and menubar */
   :global(ul[role="menu"], ul[role="menubar"]) {
     list-style: none;
     margin: 0;
+    padding: 0;
   }
 
-  .application-container {
+  .l-application {
     display: grid;
     grid-template-rows: auto 1fr;
     grid-template-columns: auto 1fr;
@@ -88,7 +88,7 @@
     width: 100vw;
   }
 
-  .application-container > * {
+  .l-application > * {
     min-width: 0;
     min-height: 0;
   }
@@ -98,12 +98,12 @@
     display: flex;
   }
   
-  .menubar {
+  .l-menubar {
     grid-area: menubar;
     background-color: var(--clr-bg-main);
   }
 
-  .toolbar {
+  .l-toolbar {
     grid-area: toolbar;
     display: flex;
     align-items: end;

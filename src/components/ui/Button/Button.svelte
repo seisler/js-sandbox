@@ -24,8 +24,8 @@
     id,
     role,
     children,
-    variant,
-    align,
+    variant = 'normal',
+    align = 'center',
     class: className = '',
     'aria-expanded': ariaExpanded,
     ...rest
@@ -45,7 +45,7 @@
 
 <style>
   button[type="button"] {
-    width: 100%;
+    width: auto;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -65,7 +65,7 @@
   /* ---- Variants ---- */
 
   .normal {
-    color: var(----clr-txt-main);
+    color: var(--clr-txt-main);
     background-color: var(--btn-primary-bg);
   }
 
@@ -79,7 +79,7 @@
 
   .ghost {
     /* all: unset; @todo check this when A11y will be revised */
-    color: var(----clr-txt-main);
+    color: var(--clr-txt-main);
     background-color: transparent !important;
   }
 

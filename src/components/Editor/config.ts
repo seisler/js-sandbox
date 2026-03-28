@@ -1,6 +1,7 @@
 import type { editor } from 'monaco-editor'
 
 const THEMES = Object.freeze({
+  VS:  'vs',
   VS_DARK: 'vs-dark',
   HC_BLACK: 'hc-black',
   HC_LIGHT: 'hc-light',

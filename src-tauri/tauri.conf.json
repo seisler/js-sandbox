@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "js-sandbox",
+        "title": "JS SandboX",
         "width": 1200,
         "height": 800,
         "minWidth": 800,
