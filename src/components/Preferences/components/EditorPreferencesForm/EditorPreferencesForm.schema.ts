@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const EditorSettingsSchema = z.object({
+export const EditorPreferencesSchema = z.object({
   cursor: z.enum(['line', 'block', 'underline']),
   fontFamily: z.enum([
     'fira-code',
@@ -15,4 +15,4 @@ export const EditorSettingsSchema = z.object({
   language: z.enum(['javascript', 'typescript'])
 })
 
-export type EditorSettings = z.infer<typeof EditorSettingsSchema>;
+export type EditorSettings = z.infer<typeof EditorPreferencesSchema>;

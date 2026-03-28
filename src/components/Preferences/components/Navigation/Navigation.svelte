@@ -1,9 +1,7 @@
 <script lang="ts">
   import Accordion from '../../../ui/Accordion/Accordion.svelte';
   import NavigationMenu from '../NavigationMenu/NavigationMenu.svelte';
-  import { ENavigationSection, navigationConfig } from './Navigation.config';
-
-  let activeSection: ENavigationSection = $state(ENavigationSection.apearance);
+  import { navigationConfig } from './Navigation.config';
 </script>
 
 <ul role="menu" class="c-navigation">
