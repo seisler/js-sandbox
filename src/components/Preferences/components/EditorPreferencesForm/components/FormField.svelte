@@ -6,7 +6,9 @@
   <strong>{label}</strong>
   <small>{subLabel}</small>
 </label>
+
 {@render children()}
+
 {#if error}
   <output role="alert" class="c-form-field__error">{error}</output>
 {/if}

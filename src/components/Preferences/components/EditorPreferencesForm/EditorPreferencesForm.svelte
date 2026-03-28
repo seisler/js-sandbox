@@ -1,7 +1,7 @@
 <script lang="ts">
   
   import { z } from 'zod';
-  import { EditorSettingsSchema } from './EditorSettingsForm.schema';
+  import { EditorPreferencesSchema } from './EditorPreferencesForm.schema';
   import FormField from './components/FormField.svelte';
 
   /* ---- State & Props ---- */
@@ -14,7 +14,7 @@
     language: 'javascript',
   });
 
-  let validation = $derived(EditorSettingsSchema.safeParse(formData));
+  let validation = $derived(EditorPreferencesSchema.safeParse(formData));
 
   let errors = $derived(
     validation.success ? {} : z.treeifyError(validation.error).properties
@@ -22,14 +22,14 @@
 
   /* ---- Javascript ---- */
 
-  function submitForm(e: any) {
+  function submitForm(e: Event) {
     if (validation.success) {
       console.log('Form valid, should call Rust at this point');
     }
   }
 </script>
 
-<form class="c-editor-settings-form">
+<form class="c-editor-preferences-form">
   <FormField
     id="theme"
     label="Theme"
@@ -39,7 +39,7 @@
     <select
       id="theme"
       name="theme"
-      class="c-editor-settings-form__item c-editor-settings-form__select"
+      class="c-editor-preferences-form__item c-editor-preferences-form__select"
       bind:value={formData.theme}
       onchange={submitForm}
     >
@@ -56,7 +56,7 @@
     subLabel="Change the cursor of the editor"
     error={errors?.cursor ? errors.cursor.errors[0] : ""}
   >
-    <select id="cursor" name="cursor" class="c-editor-settings-form__item c-editor-settings-form__select" bind:value={formData.cursor}>
+    <select id="cursor" name="cursor" class="c-editor-preferences-form__item c-editor-preferences-form__select" bind:value={formData.cursor}>
       <option value="block">Block</option>
       <option value="line">Line</option>
       <option value="underline">Underline</option>
@@ -69,7 +69,7 @@
     subLabel="Change the font family of the editor"
     error={errors?.fontFamily ? errors.fontFamily.errors[0] : ""}
   >
-    <select name="fontFamily" class="c-editor-settings-form__item c-editor-settings-form__select" bind:value={formData.fontFamily}>
+    <select id="font-family" name="fontFamily" class="c-editor-preferences-form__item c-editor-preferences-form__select" bind:value={formData.fontFamily}>
       <option value="fira-code">Fira Code, monospace</option>
       <option value="jetbrains-mono">JetBrains Mono, monospace</option>
       <option value="source-code-pro">Source Code Pro, monospace</option>
@@ -82,7 +82,7 @@
     subLabel="Change the font size of the editor in pixels. Max 20px, Min 9px"
     error={errors?.fontSize ? errors.fontSize.errors[0] : ""}
   >
-    <input type="number" id="fontSize" name="fontSize" max={20} min={9} class="c-editor-settings-form__item" bind:value={formData.fontSize} />
+    <input type="number" id="font-size" name="fontSize" max={20} min={9} class="c-editor-preferences-form__item" bind:value={formData.fontSize} />
   </FormField>
 
   <FormField
@@ -91,15 +91,15 @@
     subLabel="Change the code language of the editor"
     error={errors?.language ? errors.language.errors[0] : ""}
   >
-    <select name="language" class="c-editor-settings-form__item c-editor-settings-form__select" bind:value={formData.language}>
+    <select id="language" name="language" class="c-editor-preferences-form__item c-editor-preferences-form__select" bind:value={formData.language}>
       <option value="javascript">Javascript</option>
       <option value="typescript">Typescript</option>
     </select>
-  </FormField>  
+  </FormField>
 </form>
 
 <style>
-  .c-editor-settings-form {
+  .c-editor-preferences-form {
     color: var(--clr-txt-main);
     display: flex;
     gap: 1.5rem;
@@ -107,7 +107,7 @@
     width: 100%;
   }
 
-  .c-editor-settings-form__item {
+  .c-editor-preferences-form__item {
     color: var(--clr-txt-contrast);
     width: 50%;
     min-height: 2rem;
@@ -124,7 +124,7 @@
     text-indent: 0.5rem;
   }
 
-  .c-editor-settings-form__select {
+  .c-editor-preferences-form__select {
     appearance: none;
     background-image: url('../../../assets/chevron-down-right.svg');
     background-repeat: no-repeat;

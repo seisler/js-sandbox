@@ -4,7 +4,7 @@
   import { preferencesState } from './Preferences.svelte.ts';
   import CloseIcon from './icons/CloseIcon.svelte';
   import Navigation from './components/Navigation/Navigation.svelte';
-  import EditorSettingsForm from './form/EditorSettingsForm.svelte';
+  import EditorPreferencesForm from './components/EditorPreferencesForm/EditorPreferencesForm.svelte';
 
   /* ---- State ---- */
   
@@ -57,7 +57,7 @@
         <CloseIcon strokeWidth={0.5} />
       </Button>
     </header>
-    <EditorSettingsForm />
+    <EditorPreferencesForm />
   </main>
 </dialog>
 
