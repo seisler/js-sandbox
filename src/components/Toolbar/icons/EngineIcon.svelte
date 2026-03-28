@@ -1,10 +1,12 @@
 <script lang="ts">
+  import type { Icon } from '$types/icon.types';
+
   let { 
     size = 32, 
     color = "currentColor",
     strokeWidth = 1,
     ...rest
-  } = $props();
+  }: Icon = $props();
 </script>
 
 <svg

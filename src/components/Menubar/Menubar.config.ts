@@ -1,21 +1,7 @@
 
-import type { MenuItem } from '../ui/Menu/Menu.types'
-import { EPreferencesSection, preferencesState } from '../Preferences/Preferences.svelte.ts'
-export enum EMenubarItem {
-  'file' = 'file',
-  'go'  = 'go',
-  'help' = 'help',
-}
-
-interface MenubarItem {
-  id: EMenubarItem,
-  label: string,
-  menuItems: MenuItem[],
-}
-
-type MenubarConfig = {
-  [K in EMenubarItem]: MenubarItem;
-}
+import { preferencesState } from '$components/Preferences/Preferences.svelte.ts'
+import { EPreferencesSection } from '$components/Preferences/Preferences.type.ts'
+import { type MenubarConfig, EMenubarItem } from './Menubar.type.ts'
 
 export const menuConfig: MenubarConfig = Object.freeze({
   [EMenubarItem.file]: {

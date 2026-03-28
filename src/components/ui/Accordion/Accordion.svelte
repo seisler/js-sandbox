@@ -1,12 +1,13 @@
 <script lang="ts">
 
-  import Button from '../Button/Button.svelte';
+  import Button from '$components/ui/Button/Button.svelte';
   import ItemOpenIcon from './icons/ChevronOpen.svelte';
   import ItemClosedIcon from './icons/ChevronClosed.svelte';
+  import type { AccordionProps } from './Accordion.type';
 
   /* ---- State & Props */
   
-  let { children, label } = $props();
+  let { children, label }: AccordionProps = $props();
   let isExpanded = $state(false);
 </script>
 
@@ -24,7 +25,7 @@
       <ItemClosedIcon size={18} />
     {/if}
     
-    <span>{label}</span>
+    <small>{label}</small>
 </Button>
 
 {#if isExpanded}

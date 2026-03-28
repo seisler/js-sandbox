@@ -1,11 +1,8 @@
 <script lang="ts">
-  import Button from '../ui/Button/Button.svelte';
-  import Menu from '../ui/Menu/Menu.svelte';
-  import { EMenubarItem, menuConfig } from './Menubar.config';
-
-  /* ---- Typescript ---- */
-
-  type CurrentMenuItem = EMenubarItem | null;
+  import Button from '$components/ui/Button/Button.svelte';
+  import Menu from '$components/ui/Menu/Menu.svelte';
+  import { menuConfig } from './Menubar.config';
+  import type { CurrentMenuItem } from './Menubar.type';
 
   /* ---- State & Props ---- */
 

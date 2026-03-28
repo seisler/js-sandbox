@@ -1,8 +1,8 @@
 <script lang="ts">
   import Button from '../ui/Button/Button.svelte';
   import Menu from '../ui/Menu/Menu.svelte';
-  import { type EToolbarItem, menuConfig } from './Toolbar.config';
-  import { preferencesState } from '../Preferences/Preferences.svelte.ts';
+  import { menuConfig } from './Toolbar.config';
+  import type { EToolbarItem } from './Toolbar.type';
 
   let currentMenuOpen: EToolbarItem | null = $state(null);
   let menuRef: HTMLUListElement | undefined = $state();

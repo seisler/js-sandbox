@@ -1,16 +1,7 @@
 <script lang="ts">
-  import Editor from '../components/Editor/Editor.svelte';
   import { invoke } from '@tauri-apps/api/core';
-  import ResultsConsole from '../components/ResultsConsole/ResultsConsole.svelte';
-
-  let name = $state("");
-  let greetMsg = $state("");
-
-  async function greet(event: Event) {
-    event.preventDefault();
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    greetMsg = await invoke("greet", { name });
-  }
+  import Editor from '$components/Editor/Editor.svelte';
+  import ResultsConsole from '$components/ResultsConsole/ResultsConsole.svelte';
 </script>
 
 <section class="l-editor">

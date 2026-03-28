@@ -1,12 +1,12 @@
 <script lang="ts">
-    import Menubar from '../components/Menubar/Menubar.svelte';
-    import Preferences from '../components/Preferences/Preferences.svelte';
-    import Toolbar from '../components/Toolbar/Toolbar.svelte';
-    import { preferencesState } from '../components/Preferences/Preferences.svelte.ts';
-    
-    /* ---- State ---- */
-    let { children } = $props();
-    let dialogRef: HTMLDialogElement | undefined = $state();
+  import Menubar from '$components/Menubar/Menubar.svelte';
+  import Preferences from '$components/Preferences/Preferences.svelte';
+  import Toolbar from '$components/Toolbar/Toolbar.svelte';
+  import { preferencesState } from '$components/Preferences/Preferences.svelte.ts';
+  
+  /* ---- State ---- */
+  let { children } = $props();
+  let dialogRef: HTMLDialogElement | undefined = $state();
 </script>
 
 <div role="application" class="l-application">
