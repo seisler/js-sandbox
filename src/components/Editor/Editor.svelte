@@ -25,13 +25,6 @@
     };
 
     editorInstance = monaco.editor.create(editorContainer, config);
-
-    // Wait until instance is fully loaded to scroll until line 3.
-    setTimeout(() => {
-      editorInstance.setPosition({ lineNumber: 3, column: 1 });
-      editorInstance.focus();
-      editorInstance.revealLine(3);
-    }, 50);
   });
 
   onDestroy(() => {
@@ -40,10 +33,10 @@
 
 </script>
 
-<div bind:this={editorContainer} class="editor"></div>
+<div bind:this={editorContainer} class="l-editor"></div>
 	
 <style>
-  .editor {
+  .l-editor {
     height: 100%;
   }
 </style>

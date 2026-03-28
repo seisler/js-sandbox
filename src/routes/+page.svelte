@@ -13,10 +13,10 @@
   }
 </script>
 
-<section class="editor">
+<section class="l-editor">
   <Editor />
 </section>
-<aside class="console-container">
+<aside class="l-console c-console">
   <ResultsConsole />
 </aside>
 
@@ -33,16 +33,19 @@
     -webkit-text-size-adjust: 100%;
   }
 
-  .editor {
+  .l-editor {
     width: 70%;
   }
 
-  .console-container {
-    color: var(--clr-txt-main);
+  .l-console {
     display: flex;
     flex-direction: column;
     padding-left: 0.2rem;
     width: 40%;
+  }
+
+  .c-console {
+    color: var(--clr-txt-main);
     background-color: var(--clr-bg-main);
   }
 </style>

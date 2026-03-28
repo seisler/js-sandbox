@@ -1,6 +1,7 @@
 import type { Component } from 'svelte';
+import type { MenuItem } from '../ui/Menu/Menu.types';
 import EngineIcon from './icons/EngineIcon.svelte';
-import type { MenuItem } from '../ui/Menu/Menu.types'
+import { EPreferencesSection, preferencesState } from '../Preferences/Preferences.svelte.ts';
 
 export enum EToolbarItem {
   toolMenu = 'tool-menu',
@@ -25,15 +26,18 @@ export const menuConfig: ToolbarMenuConfig = Object.freeze({
     menuItems: [
       {
         id: 'theme',
-        text: 'Theme',
+        label: 'Theme',
+        onclick: () => preferencesState.open(EPreferencesSection.appearance),
       },
       {
         id: 'settings',
-        text: 'Settings',
+        label: 'Settings',
+        onclick: () => preferencesState.open(EPreferencesSection.settings),
       },
       {
         id: 'update-check',
-        text: 'Check for updates'
+        label: 'Check for updates',
+        onclick: () => console.log('click on check updates on toolbar')
       }
     ]
   }

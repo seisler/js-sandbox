@@ -3,11 +3,12 @@ export type MenuProps = {
   class: string,
   ariaLabel: string,
   items: MenuItem[],
-  onFocusOut: (e: FocusEvent & { currentTarget: HTMLUListElement }) => void,
+  onfocusout: (e: FocusEvent & { currentTarget: HTMLUListElement }) => void,
   domRef: HTMLUListElement | undefined
 }
 
 export type MenuItem = {
   id: string,
-  text: string,
+  label: string,
+  onclick: () => void,
 }

@@ -13,6 +13,3 @@
 >
   <PlayIcon />
 </Button>
-
-<style>
-</style>

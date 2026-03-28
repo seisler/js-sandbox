@@ -7,23 +7,26 @@
 </script>
 
 <PlayButton onclick={handleOnPlayClick} />
-<section class="result">
+<section class="l-result c-result">
 </section>
-<section class="console">
+<section class="l-console c-console">
 </section>
 
 <style>
-  .result, .console {
+  .c-result, .c-console {
     padding-inline: 1rem;
     padding-block: 1em;
   }
 
-  .result {
-    height: 45%;
+  .c-result {
     border-bottom: 0.5px solid var(--clr-border);
   }
 
-  .console {
+  .l-result {
+    height: 45%;
+  }
+
+  .l-console {
     height: 45%;
   }
 </style>
