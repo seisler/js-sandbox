@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
   import * as monaco from 'monaco-editor';
-  import config from './config';
+  import defaultPreferences from './Editor.config';
   import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
   import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
   import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
   import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
   import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+  import { userEditorPreferencesState } from './Editor.svelte.ts';
 
   let editorContainer: HTMLDivElement;
   let editorInstance: monaco.editor.IStandaloneCodeEditor;
@@ -24,7 +25,18 @@
       }
     };
 
-    editorInstance = monaco.editor.create(editorContainer, config);
+    const mergedPreferences = {...defaultPreferences, ...userEditorPreferencesState};
+
+    editorInstance = monaco.editor.create(editorContainer, mergedPreferences);
+  });
+
+  $effect(() => {
+    editorInstance?.updateOptions({
+      fontFamily: userEditorPreferencesState.fontFamily,
+      fontSize: userEditorPreferencesState.fontSize,
+      theme: userEditorPreferencesState.theme,
+      cursorStyle: userEditorPreferencesState.cursor,
+    });
   });
 
   onDestroy(() => {
