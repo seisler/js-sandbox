@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Icon } from '$shared/types/icon.types';
+  import type { Icon } from '$types/icon.types';
 
   let { 
     size = 32, 

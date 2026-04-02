@@ -2,7 +2,7 @@
   import { fly } from 'svelte/transition'
   import Button from '$shared/ui/Button/Button.svelte';
   import { preferencesState } from '../model/Preferences.svelte.ts';
-  import CloseIcon from '../icons/CloseIcon.svelte';
+  import CloseIcon from './CloseIcon.svelte';
   import Navigation from './Navigation.svelte';
   import EditorPreferencesForm from './EditorPreferencesForm.svelte';
 

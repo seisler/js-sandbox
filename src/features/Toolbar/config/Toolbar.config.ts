@@ -1,4 +1,4 @@
-import EngineIcon from '../icons/EngineIcon.svelte';
+import EngineIcon from '../ui/EngineIcon.svelte';
 import { preferencesState, EPreferencesSection } from '$features/Preferences';
 import { EToolbarItem, type ToolbarMenuConfig } from '../model/Toolbar.type';
 
