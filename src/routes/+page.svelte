@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { invoke } from '@tauri-apps/api/core';
-  import Editor from '$components/Editor/Editor.svelte';
-  import ResultsConsole from '$components/ResultsConsole/ResultsConsole.svelte';
+  import { Editor } from '$features/Editor';
+  import { ResultsConsole } from '$features/ResultsConsole';
 </script>
 
 <section class="l-editor">
