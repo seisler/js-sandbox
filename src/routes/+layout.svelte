@@ -26,6 +26,30 @@
 {/if}
 
 <style>
+
+  /* ---- Fonts ---- */
+
+  @font-face {
+    font-family: 'Fira Code';
+    src: url('/fonts/FiraCode-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Jetbrains Mono';
+    src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Source Code Pro';
+    src: url('/fonts/SourceCodePro-Regular.otf.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
   /* ---- GLOBAL STYLES ---- */
 
   /* CSS Token */

@@ -1,25 +1,21 @@
 import type { editor } from 'monaco-editor'
 
-const THEMES = Object.freeze({
-  VS:  'vs',
-  VS_DARK: 'vs-dark',
-  HC_BLACK: 'hc-black',
-  HC_LIGHT: 'hc-light',
-});
-
+/**
+ * Monaco Editor default config, it is used to initialize the editor.
+ * User can change some of this values on the editor via Preferences Dialog.
+ */
 export default {
-  //value: 'import * as R from \'ramda\';' + Array(3).fill('').join('\n'), // Fill predefined number of lines.
   automaticLayout: true, // listen on window resizes for responsiveness.
-  language: 'typescript',
-  theme: THEMES.HC_BLACK,
-  cursorStyle: 'line', // "line" | "block" | "underline" | "line-thin" | "block-outline" | "underline-thin".
+  //language: 'typescript',
+  //theme: Theme.HcBlack,
+  //cursorStyle: 'line', // "line" | "block" | "underline" | "line-thin" | "block-outline" | "underline-thin".
   lineNumbers: 'on', // "on" | "off" | "relative" | "interval" | ((lineNumber) => string).
   lineDecorationsWidth: 3,
   lineNumbersMinChars: 3,
   renderLineHighlight: 'none',
   glyphMargin: false, // margin left.
-  fontFamily: 'Fira Code, monospace',
-  fontSize: 18,
+  //fontFamily: 'Fira Code, monospace',
+  //fontSize: 18,
   fontLigatures: true, // enable or disable ligatures.
   scrollbar: {
     alwaysConsumeMouseWheel: false,

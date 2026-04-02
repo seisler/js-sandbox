@@ -3,9 +3,9 @@ import { z } from 'zod';
 export const EditorPreferencesSchema = z.object({
   cursor: z.enum(['line', 'block', 'underline']),
   fontFamily: z.enum([
-    'fira-code',
-    'jetbrains-mono',
-    'source-code-pro',
+    'Fira Code',
+    'Jetbrains Mono',
+    'Source Code Pro',
   ]),
   fontSize: z.number()
     .min(9, 'Font is too small, min size allowed 9px')
