@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Menubar } from '$features/Menubar';
-  import { Preferences, preferencesState } from '$features/Preferences';
-  import { Toolbar } from '$features/Toolbar';
+  import { Menubar } from '$widgets/Menubar';
+  import { Preferences, preferencesState } from '$widgets/Preferences';
+  import { Toolbar } from '$widgets/Toolbar';
   
   /* ---- State ---- */
   let { children } = $props();

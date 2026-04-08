@@ -1,8 +1,7 @@
 <script lang="ts">
 
-  import Button from '$shared/ui/Button/Button.svelte';
-  import ItemOpenIcon from './icons/ChevronOpen.svelte';
-  import ItemClosedIcon from './icons/ChevronClosed.svelte';
+  import { Button } from '$shared/ui/Button';
+  import { ChevronOpen, ChevronClosed } from '$shared/ui/icons';
   import type { AccordionProps } from './Accordion.type';
 
   /* ---- State & Props */
@@ -20,9 +19,9 @@
   onclick={() => isExpanded = !isExpanded}
 >
     {#if isExpanded}
-      <ItemOpenIcon size={18} />
+      <ChevronOpen size={18} />
     {:else}
-      <ItemClosedIcon size={18} />
+      <ChevronClosed size={18} />
     {/if}
     
     <small>{label}</small>
