@@ -12,9 +12,11 @@ const config = {
   kit: {
     adapter: adapter(),
     alias: {
+      $widgets: 'src/widgets',
       $features: 'src/features',
       $assets: 'src/assets',
       $shared: 'src/shared',
+      $pages: 'src/pages',
     },
   },
 };
