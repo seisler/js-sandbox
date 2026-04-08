@@ -1,7 +1,7 @@
 <script lang="ts">
   import { PlayButton } from '$features/run-code';
 
-  function handleOnPlayClick(e: any & { currentTarget: HTMLButtonElement }) {
+  function handleOnPlayClick(_e: MouseEvent & { currentTarget: HTMLButtonElement }) {
     // execute the code in a V8 JS VM.
   }
 </script>

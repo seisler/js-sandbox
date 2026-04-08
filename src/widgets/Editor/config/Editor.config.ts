@@ -1,4 +1,4 @@
-import type { editor } from 'monaco-editor'
+import type { editor } from 'monaco-editor';
 
 /**
  * Monaco Editor default config, it is used to initialize the editor.
@@ -49,4 +49,4 @@ export default {
   padding: {
     top: 15,
   },
-} as editor.IStandaloneEditorConstructionOptions
+} as editor.IStandaloneEditorConstructionOptions;

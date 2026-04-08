@@ -21,8 +21,8 @@ export const menuConfig: ToolbarMenuConfig = Object.freeze({
       {
         id: 'update-check',
         label: 'Check for updates',
-        onclick: () => console.log('click on check updates on toolbar')
+        onclick: () => {}
       }
     ]
   }
-})
+});

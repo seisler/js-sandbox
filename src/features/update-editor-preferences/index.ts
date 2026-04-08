@@ -1,1 +1,1 @@
-export { default as EditorPreferencesForm } from './ui/EditorPreferencesForm.svelte'
+export { default as EditorPreferencesForm } from './ui/EditorPreferencesForm.svelte';

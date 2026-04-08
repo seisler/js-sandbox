@@ -55,4 +55,4 @@ export const menuConfig: MenubarConfig = Object.freeze({
       }
     ]
   },
-})
+});

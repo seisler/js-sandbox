@@ -18,7 +18,7 @@ function createUserEditorPreferencesState(): UserEditorPreferencesState {
     theme: Theme.VsDark,
     cursor: Cursor.Line,
     language: Language.Javascript,
-  })
+  });
 
   return state;
 }

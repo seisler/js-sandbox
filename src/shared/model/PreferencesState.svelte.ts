@@ -9,8 +9,8 @@ export function createPreferencesState(): PreferencesState {
   let activeSection: EPreferencesSection = $state(EPreferencesSection.landing);
 
   return {
-    get isOpen(): boolean { return isOpen },
-    get activeSection(): EPreferencesSection { return activeSection },
+    get isOpen(): boolean { return isOpen; },
+    get activeSection(): EPreferencesSection { return activeSection; },
 
     open: (section = EPreferencesSection.landing) => {
       activeSection = section;
@@ -20,7 +20,7 @@ export function createPreferencesState(): PreferencesState {
     close: () => {
       isOpen = false;
     }
-  }
+  };
 }
 
 export const preferencesState: PreferencesState = createPreferencesState();

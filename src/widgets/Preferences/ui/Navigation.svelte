@@ -5,7 +5,7 @@
 </script>
 
 <ul role="menu" class="c-navigation">
-  {#each Object.values(navigationConfig) as { id, label, menuItems }}
+  {#each Object.values(navigationConfig) as { label, menuItems }}
     <li role="none">
       <Accordion {label}>
         <NavigationMenu items={menuItems} />
