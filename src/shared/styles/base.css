@@ -1,0 +1,16 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: var(--clr-bg-main);
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  color: var(--clr-txt-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
