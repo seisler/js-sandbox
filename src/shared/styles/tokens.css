@@ -1,0 +1,23 @@
+:root {
+  /* --- TYPOGRAPHY --- */
+  --font-family-mono: 'Fira Code', ui-monospace, monospace;
+  --font-family-sans: system-ui, -apple-system, sans-serif;
+
+  /* --- COLORS (BRAND) --- */
+  --clr-brand: #f38518;
+  
+  /* --- COLORS (INTERFACES) --- */
+  --clr-bg-main: #080c0e;      /* Deep background */
+  --clr-bg-surface: #181a1b;   /* Menus, cards, modals */
+  
+  --clr-txt-main: #ffffff;
+  --clr-txt-contrast: #000000;
+  --clr-txt-muted: #a0a0a0;    /* For secondary text */
+  --clr-txt-error: #DB1A1A;
+
+  --clr-border: #484538;
+
+  /* --- COMPONENT ALIASES --- */
+  --btn-primary-bg: var(--clr-brand);
+  --btn-primary-txt: var(--clr-bg-main);
+}
