@@ -15,7 +15,7 @@
         tabindex={0}
         variant="ghost"
         align="center"
-        onclick={() => console.log('click on navigation menu item ', menuItem.label)}
+        onclick={menuItem.onclick}
       >
         {menuItem.label}
       </Button>

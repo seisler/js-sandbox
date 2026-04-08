@@ -1,1 +1,1 @@
-export { default as ResultsConsole } from './ui/ResultsConsole.svelte'
+export { default as ResultsConsole } from './ui/ResultsConsole.svelte';

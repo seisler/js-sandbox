@@ -1,1 +1,1 @@
-export { EditorPreferencesSchema } from './EditorPreferences.schema'
+export { EditorPreferencesSchema } from './EditorPreferences.schema';

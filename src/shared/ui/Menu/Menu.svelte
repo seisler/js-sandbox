@@ -26,7 +26,7 @@
   {onfocusout}
   bind:this={domRef}
 >
-  {#each items as { id, label, onclick } }
+  {#each items as { label, onclick } }
     <li role="none" class="c-menu__item">
       <Button
         role="menuitem"

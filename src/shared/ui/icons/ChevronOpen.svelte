@@ -1,10 +1,9 @@
 <script lang="ts">
   import type { Icon } from './icon.types';
 
-  let { 
-    size = 32, 
+  let {
+    size = 32,
     color = "currentColor",
-    strokeWidth = 1
   }: Icon = $props();
 </script>
 

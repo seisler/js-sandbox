@@ -1,4 +1,4 @@
-import type { HTMLButtonAttributes } from 'svelte/elements'
+import type { HTMLButtonAttributes } from 'svelte/elements';
 import type { Snippet } from 'svelte';
 
 export type Button = {

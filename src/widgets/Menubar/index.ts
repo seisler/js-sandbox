@@ -1,1 +1,1 @@
-export { default as Menubar } from './ui/Menubar.svelte'
+export { default as Menubar } from './ui/Menubar.svelte';
