@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 
 export type AccordionProps = {
-  children: Snippet,
+  children?: Snippet,
   label: string,
 }

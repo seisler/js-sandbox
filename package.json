@@ -9,6 +9,8 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "tauri": "tauri"
@@ -26,15 +28,19 @@
     "@sveltejs/kit": "^2.55.0",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "@tauri-apps/cli": "^2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/svelte": "^5.3.1",
     "@types/node": "^25.5.2",
     "@typescript-eslint/eslint-plugin": "^8.58.1",
     "@typescript-eslint/parser": "^8.58.1",
     "eslint": "^10.2.0",
     "eslint-plugin-svelte": "^3.17.0",
     "globals": "^17.4.0",
+    "jsdom": "^29.0.2",
     "svelte": "^5.55.0",
     "svelte-check": "^4.0.0",
     "typescript": "~5.9.2",
-    "vite": "^8.0.3"
+    "vite": "^8.0.3",
+    "vitest": "^4.1.3"
   }
 }
