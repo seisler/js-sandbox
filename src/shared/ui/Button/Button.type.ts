@@ -4,7 +4,7 @@ import type { Snippet } from 'svelte';
 export type Button = {
   id?: string,
   role?: string,
-  children: Snippet,
+  children?: Snippet,
   // Only buttons from a menu should have tabindex. Button's tabindex default is 0.
   tabindex?: number,
   variant?: 'normal' | 'ghost',
