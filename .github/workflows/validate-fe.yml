@@ -1,4 +1,4 @@
-name: Validate
+name: Validate Frontend
 
 on:
   push:
@@ -7,6 +7,13 @@ on:
       - 'refactor/**'
       - 'bugfix/**'
       - 'hotfix/**'
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - 'svelte.config.js'
+      - 'vite.config.js'
 
 jobs:
   check:

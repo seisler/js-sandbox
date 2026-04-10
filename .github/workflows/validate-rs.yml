@@ -1,0 +1,34 @@
+name: Validate Rust
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'refactor/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+    paths:
+      - 'src-tauri/**'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - run: cargo check
+        working-directory: src-tauri
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - run: cargo test
+        working-directory: src-tauri
