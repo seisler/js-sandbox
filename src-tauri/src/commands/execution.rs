@@ -1,5 +1,6 @@
+use crate::executor;
+
 #[tauri::command]
-pub fn run_code(code: &str) -> Result<&str, String> {
-  format!("Hello, {}! You've been click on run code", code);
-  return Ok("hello")
+pub async fn execute_js(code: String) -> Result<String, String> {
+  executor::execute_js(&code).await.map_err(|e| e.to_string())
 }
