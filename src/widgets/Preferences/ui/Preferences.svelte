@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly } from 'svelte/transition'
   import { Button } from '$shared/ui/Button';
-  import { preferencesState } from '../../../shared/model/PreferencesState.svelte.ts';
+  import { preferencesState } from '$shared/model';
   import { Close } from '$shared/ui/icons';
   import Navigation from './Navigation.svelte';
   import { EditorPreferencesForm } from '$features/update-editor-preferences';

@@ -11,7 +11,7 @@ function createEditorState(): EditorState {
     code: '',
     result: '',
     isRunning: false,
-  })
+  });
   
   return state;
 }

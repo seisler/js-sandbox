@@ -1,5 +1,3 @@
-import { string } from "zod"
-
 export enum Theme {
   Vs = 'vs',
   VsDark ='vs-dark',

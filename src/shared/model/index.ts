@@ -9,7 +9,7 @@ export {
   type EditorState,
 } from './Editor.type';
 
-export { editorState } from './Editor.svelte.ts'
+export { editorState } from './Editor.svelte.ts';
 
 export { EPreferencesSection, type PreferencesState } from './Preferences.type';
 

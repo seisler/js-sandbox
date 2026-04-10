@@ -3,7 +3,7 @@ import { editorState } from '$shared/model';
 
 export const runCode = () => {
   if (editorState.isRunning) {
-    editorState.result = 'Executing code...'
+    editorState.result = 'Executing code...';
     return;
   };
   
