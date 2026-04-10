@@ -7,13 +7,13 @@
   import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
   import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
   import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-  import { userEditorPreferencesState } from '$shared/model';
+  import { userEditorPreferencesState, editorState } from '$shared/model';
 
   let editorContainer: HTMLDivElement;
   let editorInstance: monaco.editor.IStandaloneCodeEditor;
 	
 	onMount(() => {
-    // Monaco environment must be set on global object.
+    /* Monaco environment must be set on global object. */
     self.MonacoEnvironment = {
       getWorker: function (_, label) {
         if (label === 'json') return new jsonWorker();
@@ -25,9 +25,14 @@
       }
     };
 
+    /* Merge User preferences with defaults */
     const mergedPreferences = {...defaultPreferences, ...userEditorPreferencesState};
 
     editorInstance = monaco.editor.create(editorContainer, mergedPreferences);
+
+    editorInstance.onDidChangeModelContent(() => {
+      editorState.code = editorInstance.getValue();
+    });
   });
 
   $effect(() => {
