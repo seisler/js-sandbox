@@ -74,5 +74,6 @@ npm run test           # Vitest unit tests
 - [ ] npm packages feature — add/remove packages and inject their types into Monaco Editor
 - [ ] Expanded test coverage
 - [ ] Full accessibility audit — keyboard and arrow navigation for menus
+- [ ] Hard memory limit for the JS engine via V8 OOM callback
 - [ ] End-to-end testing
 - [ ] Automated release pipeline with cross-platform builds
