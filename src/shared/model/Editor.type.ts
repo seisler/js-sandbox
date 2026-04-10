@@ -1,3 +1,5 @@
+import { string } from "zod"
+
 export enum Theme {
   Vs = 'vs',
   VsDark ='vs-dark',
@@ -20,6 +22,12 @@ export enum Cursor {
 export enum Language {
   Javascript = 'javascript',
   Typescript = 'typescript',
+}
+
+export type EditorState = {
+  code: string;
+  result: string;
+  isRunning: boolean;
 }
 
 export type UserEditorPreferencesState = {
