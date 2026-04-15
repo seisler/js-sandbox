@@ -1,16 +1,9 @@
 <script lang="ts">
-  import { PlayButton, runCode } from '$features/run-code';
+  import { PlayButton } from '$features/run-code';
   import { editorState } from '$shared/model';
-
-  async function handleOnPlayClick(
-    _e: MouseEvent & { currentTarget: HTMLButtonElement }
-  ) {
-    runCode();
-  }
 </script>
 
 <PlayButton
-  onclick={handleOnPlayClick}
   isDisabled={editorState.isRunning}
 />
 <section class="l-result c-result">
