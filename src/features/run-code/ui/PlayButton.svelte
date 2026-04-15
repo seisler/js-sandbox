@@ -2,15 +2,16 @@
   import PlayIcon from '$shared/ui/icons/PlayIcon.svelte';
   import Button from '$shared/ui/Button/Button.svelte';
   import type { PlayButtonProps } from './PlayButton.type';
+  import { runCode } from '../api/runCode';
 
-  let { onclick, isDisabled }: PlayButtonProps = $props();
+  let { isDisabled }: PlayButtonProps = $props();
 </script>
 
 <Button
   aria-label="Run code"
   align="center"
   disabled={isDisabled}
-  {onclick}
+  onclick={runCode}
   variant="normal"
 >
   <PlayIcon />
