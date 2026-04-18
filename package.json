@@ -1,7 +1,7 @@
 {
   "name": "js-sandbox",
   "version": "0.1.0",
-  "description": "",
+  "description": "JS Sandbox REPL",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
@@ -39,7 +39,7 @@
     "jsdom": "^29.0.2",
     "svelte": "^5.55.0",
     "svelte-check": "^4.0.0",
-    "typescript": "~5.9.2",
+    "typescript": "^6.0.3",
     "vite": "^8.0.3",
     "vitest": "^4.1.3"
   }
