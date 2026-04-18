@@ -1,18 +1,19 @@
 import { invoke } from '@tauri-apps/api/core';
-import { editorState } from '$shared/model';
+import { editorState } from '$entities/editor';
+import { runCodeState } from '../model/RunCodeState.svelte.ts';
 
 export const runCode = () => {
-  if (editorState.isRunning) {
-    editorState.result = 'Executing code...';
+  if (runCodeState.isRunning) {
+    runCodeState.result = 'Executing code...';
     return;
   };
   
-  editorState.isRunning = true;
+  runCodeState.isRunning = true;
   
   invoke<string>('execute_js', { code: editorState.code })
-    .then(res => editorState.result = res)
-    .catch(err => editorState.result = err)
+    .then(res => runCodeState.result = res)
+    .catch(err => runCodeState.result = err)
     .finally(() => {
-      editorState.isRunning = false;
+      runCodeState.isRunning = false;
     });
 };

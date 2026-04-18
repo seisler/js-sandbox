@@ -4,8 +4,6 @@
   import { menuConfig } from '../config/Menubar.config';
   import type { CurrentMenuItem } from './Menubar.type';
 
-  /* ---- State & Props ---- */
-
   let currentItemMenuOpened: CurrentMenuItem = $state(null);
   let menuRef: HTMLUListElement | undefined = $state();
 
@@ -14,8 +12,6 @@
       menuRef.focus();
     }
   })
-
-  /* ---- Javascript ----*/
   
   /**
    * Unset currentItemMenuOpened state

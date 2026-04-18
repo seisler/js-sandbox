@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Menubar } from '$widgets/Menubar';
-  import { Preferences, preferencesState } from '$widgets/Preferences';
+  import { Preferences } from '$widgets/Preferences';
   import { Toolbar } from '$widgets/Toolbar';
   import '$shared/styles/index.css';
   
@@ -21,9 +21,7 @@
   </main>
 </div>
 
-{#if preferencesState.isOpen }
-  <Preferences bind:domRef={dialogRef} />
-{/if}
+<Preferences bind:domRef={dialogRef} />
 
 <style>
   .l-application {

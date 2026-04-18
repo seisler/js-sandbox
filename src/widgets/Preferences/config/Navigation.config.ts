@@ -1,4 +1,5 @@
-import { type NavigationConfig, ENavigationSection } from '../ui/Navigation.type';
+import { type NavigationConfig } from './Navigation.type';
+import { ENavigationSection } from '$shared/model';
 
 export const navigationConfig: NavigationConfig = Object.freeze({
   [ENavigationSection.appearance]: {
