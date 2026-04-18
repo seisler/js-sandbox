@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { FormFieldProps } from './FormField.type';
-
+  
   let { id, children, error, label, subLabel }: FormFieldProps = $props();
 </script>
 

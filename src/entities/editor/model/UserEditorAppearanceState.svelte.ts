@@ -1,17 +1,17 @@
 import {
+  type UserEditorAppearanceState,
+  FontFamily,
   Theme,
   Cursor,
   Language,
-  FontFamily,
-  type UserEditorPreferencesState,
-} from './Editor.type';
+} from './EditorAppearance.type';
 
 /**
  * Shared User Editor Preferences.
  * Svelte 5 keeps reactivity for nested objects
  * @returns PreferencesState
  */
-function createUserEditorPreferencesState(): UserEditorPreferencesState {
+function createUserEditorAppearanceState(): UserEditorAppearanceState {
   let state = $state({
     fontFamily: FontFamily.FiraCode,
     fontSize: 16,
@@ -23,4 +23,4 @@ function createUserEditorPreferencesState(): UserEditorPreferencesState {
   return state;
 }
 
-export const userEditorPreferencesState: UserEditorPreferencesState = createUserEditorPreferencesState();
+export const userEditorAppearanceState = createUserEditorAppearanceState();

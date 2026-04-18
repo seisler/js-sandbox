@@ -1,18 +1,16 @@
 <script lang="ts">
-  import PlayIcon from '$shared/ui/icons/PlayIcon.svelte';
-  import Button from '$shared/ui/Button/Button.svelte';
-  import type { PlayButtonProps } from './PlayButton.type';
+  import { Play } from '$shared/ui/icons';
+  import { Button } from '$shared/ui/Button';
   import { runCode } from '../api/runCode';
-
-  let { isDisabled }: PlayButtonProps = $props();
+  import { runCodeState } from '../model/RunCodeState.svelte.ts';
 </script>
 
 <Button
   aria-label="Run code"
   align="center"
-  disabled={isDisabled}
+  disabled={runCodeState.isRunning}
   onclick={runCode}
   variant="normal"
 >
-  <PlayIcon />
+  <Play />
 </Button>

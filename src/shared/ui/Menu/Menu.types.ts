@@ -10,5 +10,5 @@ export type MenuProps = {
 export type MenuItem = {
   id: string,
   label: string,
-  onclick: () => void,
+  onclick?: () => void,
 }

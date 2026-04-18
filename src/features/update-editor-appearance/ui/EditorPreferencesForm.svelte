@@ -1,16 +1,16 @@
 <script lang="ts">
   import { z } from 'zod';
-  import { EditorPreferencesSchema } from '$shared/config';
-  import { Cursor, FontFamily, Theme, userEditorPreferencesState } from '$shared/model';
+  import {
+    userEditorAppearanceState,
+    Cursor,
+    FontFamily,
+    Theme,
+    EditorPreferencesSchema
+  } from '$entities/editor';
   import FormField from './FormField.svelte';
-  
-  /* ---- State & Props ---- */
 
-  let validation = $derived(EditorPreferencesSchema.safeParse(userEditorPreferencesState));
-
-  let errors = $derived(
-    validation.success ? {} : z.treeifyError(validation.error).properties
-  );
+  let validation = $derived(EditorPreferencesSchema.safeParse(userEditorAppearanceState));
+  let errors = $derived(validation.success ? {} : z.treeifyError(validation.error).properties);
 </script>
 
 <form class="c-editor-preferences-form">
@@ -23,7 +23,7 @@
     <select
       id="theme"
       name="theme"
-      bind:value={userEditorPreferencesState.theme}
+      bind:value={userEditorAppearanceState.theme}
       class="c-editor-preferences-form__item c-editor-preferences-form__select"
     >
       <option value={Theme.Vs}>Light</option>
@@ -42,7 +42,7 @@
     <select
       id="cursor"
       name="cursor"
-      bind:value={userEditorPreferencesState.cursor}
+      bind:value={userEditorAppearanceState.cursor}
       class="c-editor-preferences-form__item c-editor-preferences-form__select"
     >
       <option value={Cursor.Block}>Block</option>
@@ -60,7 +60,7 @@
     <select
       id="font-family"
       name="fontFamily"
-      bind:value={userEditorPreferencesState.fontFamily}
+      bind:value={userEditorAppearanceState.fontFamily}
       class="c-editor-preferences-form__item c-editor-preferences-form__select"
     >
       <option value={FontFamily.FiraCode}>Fira Code, monospace</option>
@@ -81,7 +81,7 @@
       name="fontSize"
       max={20}
       min={9}
-      bind:value={userEditorPreferencesState.fontSize}
+      bind:value={userEditorAppearanceState.fontSize}
       class="c-editor-preferences-form__item" />
   </FormField>
 
@@ -94,7 +94,7 @@
     <select
       id="language"
       name="language"
-      bind:value={userEditorPreferencesState.language}
+      bind:value={userEditorAppearanceState.language}
       class="c-editor-preferences-form__item c-editor-preferences-form__select">
       <option value="javascript">Javascript</option>
       <option value="typescript">Typescript</option>
@@ -130,7 +130,7 @@
 
   .c-editor-preferences-form__select {
     appearance: none;
-    background-image: url('$assets/chevron-down-right.svg');
+    background-image: url('$shared/ui/assets/chevron-down-right.svg');
     background-repeat: no-repeat;
     background-position: right 0.7rem center;
     background-size: 1rem;

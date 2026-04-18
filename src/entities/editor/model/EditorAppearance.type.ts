@@ -22,13 +22,7 @@ export enum Language {
   Typescript = 'typescript',
 }
 
-export type EditorState = {
-  code: string;
-  result: string;
-  isRunning: boolean;
-}
-
-export type UserEditorPreferencesState = {
+export type UserEditorAppearanceState = {
   fontFamily: FontFamily,
   fontSize: number,
   theme: Theme,
