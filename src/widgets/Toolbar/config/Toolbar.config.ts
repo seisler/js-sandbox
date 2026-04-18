@@ -1,4 +1,4 @@
-import { EPreferencesSection, preferencesState } from '$shared/model';
+import { preferencesDialogState } from '$features/open-preferences';
 import { Engine } from '$shared/ui/icons';
 import { EToolbarItem, type ToolbarMenuConfig } from '../ui/Toolbar.type';
 
@@ -11,12 +11,12 @@ export const menuConfig: ToolbarMenuConfig = Object.freeze({
       {
         id: 'theme',
         label: 'Theme',
-        onclick: () => preferencesState.open(EPreferencesSection.appearance),
+        onclick: () => preferencesDialogState.open(),
       },
       {
         id: 'settings',
         label: 'Settings',
-        onclick: () => preferencesState.open(EPreferencesSection.settings),
+        onclick: () => preferencesDialogState.open(),
       },
       {
         id: 'update-check',

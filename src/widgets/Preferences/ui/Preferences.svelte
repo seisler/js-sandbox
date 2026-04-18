@@ -1,12 +1,10 @@
 <script lang="ts">
   import { fly } from 'svelte/transition'
   import { Button } from '$shared/ui/Button';
-  import { preferencesState } from '$shared/model';
   import { Close } from '$shared/ui/icons';
   import Navigation from './Navigation.svelte';
-  import { EditorPreferencesForm } from '$features/update-editor-preferences';
-
-  /* ---- State ---- */
+  import { EditorPreferencesForm } from '$features/update-editor-appearance';
+  import { preferencesDialogState } from '$features/open-preferences';
   
   let { domRef = $bindable() } = $props();
 
@@ -16,18 +14,16 @@
    * and apply custom functionality like: inert background, absolute positioning, backdrop pseudo-element...
    */
   $effect(() => {
-    if (preferencesState.isOpen && domRef) {
+    if (preferencesDialogState.isOpen && domRef) {
       domRef?.showModal();
     } else {
       domRef?.close();
     }
   })
 
-  /* ---- Javascript ---- */
-
   function handleOnClose() {
     domRef?.close();
-    preferencesState.close();
+    preferencesDialogState.close();
   }
 
   function handleOnKeyDown(e: KeyboardEvent) {

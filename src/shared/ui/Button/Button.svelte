@@ -1,8 +1,6 @@
 <script lang="ts">
 
   import type { ButtonProps } from './Button.type';
-
-  /* ---- State & Props ---- */
   
   let {
     id,

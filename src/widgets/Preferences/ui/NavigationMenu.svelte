@@ -1,8 +1,5 @@
 <script lang="ts">
-  
   import { Button } from '$shared/ui/Button';
-
-  /* ---- State & Props ---- */
 
   let { items } = $props();
 </script>
