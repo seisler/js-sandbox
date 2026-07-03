@@ -18,6 +18,7 @@ A desktop JavaScript sandbox built with Tauri 2. Users write JS in a Monaco edit
 | [ADR-FE-003](docs/adr/fe/003-css-bem.md) | Frontend CSS — BEM with `c-` (component) and `l-` (layout) prefixes |
 | [ADR-FE-004](docs/adr/fe/004-reactive-state-pattern.md) | Frontend state — Revealing Module Pattern with Svelte 5 runes (`.svelte.ts`) |
 | [ADR-FE-005](docs/adr/fe/005-accessibility.md) | Frontend accessibility — semantic HTML, ARIA roles, focus management |
+| [ADR-FE-006](docs/adr/fe/006-functional-programming.md) | Frontend style — no classes, no parameter mutation, pure logic separated from reactive shells |
 
 ## Commands
 
@@ -98,7 +99,7 @@ Specs, plans, and tasks live in `.specify/`. Use these slash commands in order:
 For additional context about the current feature being built, read the current plan in `.specify/`.
 
 <!-- SPECKIT START -->
-**Current feature plan**: [specs/001-npm-global-injection/plan.md](specs/001-npm-global-injection/plan.md)
+**Current feature plan**: [specs/002-package-binding-state/plan.md](specs/002-package-binding-state/plan.md)
 <!-- SPECKIT END -->
 
 ## Coding conventions

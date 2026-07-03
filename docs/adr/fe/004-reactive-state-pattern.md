@@ -14,7 +14,7 @@ The application needs shared reactive state that:
 - Lives outside components (accessible across features, widgets, and pages)
 - Keeps internal state private and mutation controlled
 - Is testable in isolation without mounting a component
-- Stays consistent with the no-classes convention (ADR-FE-001)
+- Stays consistent with the no-classes convention (ADR-FE-006)
 
 ## Decision
 
