@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Package Manager — UI Mockup (Trello tQcEi9qh)</title>
+<!--
+  Static mockup, no build step: open this file directly in a browser.
+  Pulls the real design tokens (../../../src/shared/styles/tokens.css) so it
+  stays in sync with the live token set instead of duplicating values.
+  Not the real implementation — plain HTML/CSS/vanilla JS, in-memory state only.
+-->
+<link rel="stylesheet" href="../../../src/shared/styles/tokens.css" />
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--space-6);
+    background-color: var(--clr-bg-main);
+    color: var(--clr-txt-main);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-md);
+  }
+
+  /* ---- c-button (mirrors src/shared/ui/Button) ---- */
+
+  .c-button {
+    width: auto;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.5em 0.3em;
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    border: none;
+    margin-inline: 0;
+    transition: transform 0.1s ease;
+    user-select: none;
+    color: var(--clr-txt-main);
+    background-color: var(--btn-primary-bg);
+  }
+
+  .c-button:active {
+    transform: scale(0.99);
+  }
+
+  .c-button--ghost {
+    background-color: transparent;
+  }
+
+  .c-button--ghost:active {
+    transform: scale(0.95);
+  }
+
+  .c-button[aria-expanded="true"] {
+    background-color: var(--clr-border);
+  }
+
+  /* ---- c-package-manager ---- */
+
+  .l-package-manager {
+    width: 280px;
+  }
+
+  .c-package-manager {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-inline: var(--space-4);
+    padding-block: var(--space-4);
+    background-color: var(--clr-bg-surface);
+    color: var(--clr-txt-main);
+    font-size: var(--font-size-sm);
+  }
+
+  .c-package-manager__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .c-package-manager__title {
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+
+  /* ---- c-package-manager__modal (mirrors widgets/Preferences/Preferences.svelte) ---- */
+
+  .c-package-manager__modal {
+    width: 320px;
+    padding: var(--space-4);
+    border: none;
+    border-radius: var(--radius-sm);
+    background-color: var(--clr-bg-main);
+    color: var(--clr-txt-main);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .c-package-manager__modal::backdrop {
+    backdrop-filter: blur(2px);
+  }
+
+  .c-package-manager__modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: var(--space-4);
+  }
+
+  .c-package-manager__modal-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+  }
+
+  .c-package-manager__modal-search {
+    width: 100%;
+    margin-block-end: var(--space-2);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    color: var(--clr-txt-main);
+    background-color: var(--clr-bg-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    padding-inline: var(--space-2);
+    padding-block: var(--space-2);
+  }
+
+  .c-package-manager__modal-search:focus {
+    outline: 1px solid var(--clr-brand);
+  }
+
+  .c-package-manager__modal-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .c-package-manager__modal-item {
+    width: 100%;
+    justify-content: flex-start;
+    padding-inline: var(--space-2);
+    padding-block: var(--space-2);
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    font-family: var(--font-family-mono);
+  }
+
+  .c-package-manager__modal-item:hover {
+    background-color: var(--clr-border);
+  }
+
+  .c-package-manager__empty,
+  .c-package-manager__empty-picker {
+    color: var(--clr-txt-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  .c-package-manager__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .c-package-manager__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    padding: var(--space-2);
+    background-color: var(--clr-bg-main);
+    border-radius: var(--radius-sm);
+  }
+
+  .c-package-manager__name {
+    flex: 1;
+    font-family: var(--font-family-mono);
+  }
+
+  .c-package-manager__alias-field {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .c-package-manager__alias-label {
+    color: var(--clr-txt-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  .c-package-manager__alias-input {
+    width: 5rem;
+    line-height: 1.4;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    color: var(--clr-txt-main);
+    background-color: var(--clr-bg-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    padding-inline: var(--space-2);
+    padding-block: var(--space-2);
+  }
+
+  .c-package-manager__alias-input--invalid {
+    border-color: var(--clr-txt-error);
+  }
+
+  .c-package-manager__alias-error {
+    flex-basis: 100%;
+    color: var(--clr-txt-error);
+    font-size: var(--font-size-xs);
+  }
+</style>
+</head>
+<body>
+  <section class="l-package-manager c-package-manager">
+    <header class="c-package-manager__header">
+      <h2 class="c-package-manager__title">Packages</h2>
+      <button type="button" class="c-button c-button--ghost" id="add-package-trigger">
+        + Add package
+      </button>
+    </header>
+
+    <p class="c-package-manager__empty" id="empty-state" hidden>No packages added yet</p>
+
+    <ul class="c-package-manager__list" id="package-list"></ul>
+  </section>
+
+  <dialog class="c-package-manager__modal" id="package-picker-modal">
+    <header class="c-package-manager__modal-header">
+      <h3 class="c-package-manager__modal-title">Add package</h3>
+      <button type="button" class="c-button c-button--ghost" id="close-picker-modal" aria-label="Close">
+        ✕
+      </button>
+    </header>
+    <input
+      type="search"
+      class="c-package-manager__modal-search"
+      id="picker-search"
+      placeholder="Search packages…"
+      aria-label="Search packages"
+      autocomplete="off"
+    />
+    <ul class="c-package-manager__modal-list" id="picker-list"></ul>
+    <p class="c-package-manager__empty-picker" id="picker-empty" hidden></p>
+  </dialog>
+
+  <script>
+    // Mirrors DEFAULT_ALIASES in src/shared/config/PackageBinding.schema.ts
+    const WHITELIST = { lodash: '_', 'date-fns': 'dateFns', zod: 'z' };
+
+    let activePackages = [
+      { package: 'lodash', alias: '_' },
+      { package: 'zod', alias: 'z' },
+    ];
+
+    let searchQuery = '';
+
+    const listEl = document.getElementById('package-list');
+    const emptyEl = document.getElementById('empty-state');
+    const addTrigger = document.getElementById('add-package-trigger');
+    const modalEl = document.getElementById('package-picker-modal');
+    const closeModalBtn = document.getElementById('close-picker-modal');
+    const searchInput = document.getElementById('picker-search');
+    const pickerListEl = document.getElementById('picker-list');
+    const pickerEmptyEl = document.getElementById('picker-empty');
+
+    function availablePackages() {
+      return Object.entries(WHITELIST).filter(
+        ([name]) => !activePackages.some((p) => p.package === name)
+      );
+    }
+
+    // Pure search dialog: nothing shows until the user types. Filters the
+    // same curated whitelist client-side. Whether v1 stays a fixed whitelist
+    // (current Trello assumption) or becomes a live esm.sh/npm registry
+    // search (architecturally possible per ADR-BE-002, which fetches by
+    // package name from the full registry) is still open — this interaction
+    // pattern (type to filter, click a result to add) carries over either way.
+    function searchablePackages() {
+      const query = searchQuery.trim().toLowerCase();
+      if (!query) return [];
+      return availablePackages().filter(([name]) => name.toLowerCase().includes(query));
+    }
+
+    function addPackage(name, defaultAlias) {
+      activePackages = [...activePackages, { package: name, alias: defaultAlias }];
+      modalEl.close();
+      render();
+    }
+
+    function removePackage(name) {
+      activePackages = activePackages.filter((p) => p.package !== name);
+      render();
+    }
+
+    function updateAlias(name, value) {
+      activePackages = activePackages.map((p) =>
+        p.package === name ? { ...p, alias: value } : p
+      );
+      render();
+    }
+
+    function renderPicker() {
+      const hasAnyAvailable = availablePackages().length > 0;
+      const query = searchQuery.trim();
+      const results = searchablePackages();
+      pickerListEl.innerHTML = '';
+      pickerListEl.hidden = results.length === 0;
+      pickerEmptyEl.hidden = results.length > 0;
+
+      if (results.length === 0) {
+        if (!hasAnyAvailable) {
+          pickerEmptyEl.textContent = 'All packages already added';
+        } else if (!query) {
+          pickerEmptyEl.textContent = 'Start typing to search packages';
+        } else {
+          pickerEmptyEl.textContent = `No packages match "${query}"`;
+        }
+      }
+
+      results.forEach(([name, alias]) => {
+        const item = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'c-button c-button--ghost c-package-manager__modal-item';
+        button.textContent = `${name} (${alias})`;
+        button.addEventListener('click', () => addPackage(name, alias));
+        item.appendChild(button);
+        pickerListEl.appendChild(item);
+      });
+    }
+
+    function renderList() {
+      listEl.innerHTML = '';
+      emptyEl.hidden = activePackages.length !== 0;
+
+      activePackages.forEach(({ package: name, alias }) => {
+        const li = document.createElement('li');
+        li.className = 'c-package-manager__item';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'c-package-manager__name';
+        nameSpan.textContent = name;
+
+        const aliasField = document.createElement('div');
+        aliasField.className = 'c-package-manager__alias-field';
+
+        const label = document.createElement('label');
+        label.className = 'c-package-manager__alias-label';
+        label.setAttribute('for', `alias-${name}`);
+        label.textContent = 'as';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = `alias-${name}`;
+        input.className = 'c-package-manager__alias-input';
+        input.value = alias;
+        input.addEventListener('input', (e) => updateAlias(name, e.target.value));
+
+        aliasField.append(label, input);
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'c-button c-button--ghost';
+        removeBtn.setAttribute('aria-label', `Remove ${name}`);
+        removeBtn.textContent = '✕';
+        removeBtn.addEventListener('click', () => removePackage(name));
+
+        li.append(nameSpan, aliasField, removeBtn);
+
+        if (alias.trim() === '') {
+          input.classList.add('c-package-manager__alias-input--invalid');
+          const error = document.createElement('output');
+          error.setAttribute('role', 'alert');
+          error.className = 'c-package-manager__alias-error';
+          error.textContent = 'Alias cannot be empty';
+          li.appendChild(error);
+        }
+
+        listEl.appendChild(li);
+      });
+    }
+
+    function render() {
+      renderList();
+      renderPicker();
+    }
+
+    addTrigger.addEventListener('click', () => {
+      searchQuery = '';
+      searchInput.value = '';
+      renderPicker();
+      modalEl.showModal();
+      searchInput.focus();
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderPicker();
+    });
+
+    closeModalBtn.addEventListener('click', () => modalEl.close());
+
+    // Click on the ::backdrop (outside the modal's own content box) closes it.
+    modalEl.addEventListener('click', (e) => {
+      if (e.target === modalEl) modalEl.close();
+    });
+
+    render();
+  </script>
+</body>
+</html>
