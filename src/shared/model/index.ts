@@ -14,3 +14,6 @@ export { editorState } from './Editor.svelte.ts';
 export { EPreferencesSection, type PreferencesState } from './Preferences.type';
 
 export { preferencesState } from './PreferencesState.svelte';
+
+export { packageBindingsState, createPackageBindingsState } from './PackageBindings.svelte';
+export type { PackageBinding, PackageBindingsState } from './PackageBindings.type';
