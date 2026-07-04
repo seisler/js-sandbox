@@ -134,8 +134,18 @@ Show the draft to the user, then assess `EXISTING_DESCRIPTION`:
 
 Wait for the user's answer, then apply it via the Trello MCP tool:
 
-- **Replace**: set the card description to the spec summary.
-- **Add as comment**: post the spec summary as a new card comment.
+- **Replace**: set the card description to the spec summary (this already includes the `## Branch` section).
+- **Add as comment**: post the spec summary as a new card comment, **and** append a branch line to the existing description so the branch is visible without opening the comment thread:
+
+  ```
+  <EXISTING_DESCRIPTION>
+
+  **Branch:** `<BRANCH_NAME>`
+  ```
+
+  Skip the append if `EXISTING_DESCRIPTION` already contains `<BRANCH_NAME>` verbatim.
+
+The branch name must end up in the card's description field either way — never only in a comment.
 
 Print:
 > ✓ Trello card updated.

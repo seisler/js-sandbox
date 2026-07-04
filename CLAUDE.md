@@ -19,6 +19,7 @@ A desktop JavaScript sandbox built with Tauri 2. Users write JS in a Monaco edit
 | [ADR-FE-004](docs/adr/fe/004-reactive-state-pattern.md) | Frontend state — Revealing Module Pattern with Svelte 5 runes (`.svelte.ts`) |
 | [ADR-FE-005](docs/adr/fe/005-accessibility.md) | Frontend accessibility — semantic HTML, ARIA roles, focus management |
 | [ADR-FE-006](docs/adr/fe/006-functional-programming.md) | Frontend style — no classes, no parameter mutation, pure logic separated from reactive shells |
+| [ADR-FE-007](docs/adr/fe/007-design-tokens-no-magic-values.md) | Frontend CSS — design tokens are the source of truth, no magic values |
 
 ## Commands
 

@@ -3,13 +3,38 @@
   --font-family-mono: 'Fira Code', ui-monospace, monospace;
   --font-family-sans: system-ui, -apple-system, sans-serif;
 
+  --font-size-xs: 0.75rem;   /* 12px — dense labels */
+  --font-size-sm: 0.875rem;  /* 14px — buttons, menu items */
+  --font-size-md: 1rem;      /* 16px — body text (default) */
+  --font-size-lg: 1.25rem;   /* 20px — section headings */
+  --font-size-xl: 1.5rem;    /* 24px — page/dialog titles */
+
+  /* --- SPACING --- */
+  /* 8px grid. Pick the token, never a raw rem/px value. */
+  --space-1: 0.25rem;  /* 4px  — icon-to-label gaps */
+  --space-2: 0.5rem;   /* 8px  — tight inline padding */
+  --space-3: 0.75rem;  /* 12px — compact control padding */
+  --space-4: 1rem;     /* 16px — default padding/gap */
+  --space-5: 1.5rem;   /* 24px — section spacing */
+  --space-6: 2rem;     /* 32px — layout gutters */
+  --space-7: 3rem;     /* 48px — large offsets (overlays, floating panels) */
+  --space-8: 4rem;     /* 64px — page-level spacing */
+
+  /* --- RADII --- */
+  --radius-sm: 2px;  /* controls, inputs */
+  --radius-md: 4px;  /* menus, modals */
+
+  /* --- SHADOWS --- */
+  --shadow-elevated: 0 0 0 1px rgba(255, 255, 255, 0.01),
+    0 10px 25px rgba(0, 0, 0, 0.5); /* menus, modals, floating panels */
+
   /* --- COLORS (BRAND) --- */
   --clr-brand: #f38518;
-  
+
   /* --- COLORS (INTERFACES) --- */
   --clr-bg-main: #080c0e;      /* Deep background */
   --clr-bg-surface: #181a1b;   /* Menus, cards, modals */
-  
+
   --clr-txt-main: #ffffff;
   --clr-txt-contrast: #000000;
   --clr-txt-muted: #a0a0a0;    /* For secondary text */
@@ -21,3 +46,15 @@
   --btn-primary-bg: var(--clr-brand);
   --btn-primary-txt: var(--clr-bg-main);
 }
+
+/*
+ * BREAKPOINTS live in src/shared/config/Breakpoints.config.ts, not here.
+ * CSS custom properties can't be read inside `@media` feature queries, so the
+ * pixel values below must match BREAKPOINTS exactly — the lint rule added in
+ * a follow-up ticket enforces that. Reference: window is 800x600 min,
+ * 1200x800 default, no max (tauri.conf.json).
+ *
+ * sm: 800px  (matches the Tauri window's minimum width)
+ * md: 1200px (matches the Tauri window's default width)
+ * lg: 1600px (wide/maximized windows)
+ */
