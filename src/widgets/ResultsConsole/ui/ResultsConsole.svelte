@@ -7,7 +7,7 @@
   isDisabled={editorState.isRunning}
 />
 <section class="l-result c-result">
-  Result: { editorState.result }
+  { editorState.result }
 </section>
 <section class="l-console c-console">
 </section>

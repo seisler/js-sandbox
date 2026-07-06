@@ -13,6 +13,7 @@ A desktop JavaScript sandbox built with Tauri 2. Users write JS in a Monaco edit
 | [ADR-BE-003](docs/adr/be/003-error-handling.md) | Backend — `anyhow` in core, `String` at Tauri boundary |
 | [ADR-BE-004](docs/adr/be/004-command-layer.md) | Backend — Tauri command handlers as thin adapters |
 | [ADR-BE-005](docs/adr/be/005-raii-drop-cleanup.md) | Backend — RAII via `Drop` for guaranteed cleanup |
+| [ADR-BE-006](docs/adr/be/006-npm-registry-search.md) | Backend — live npm registry search via a dedicated Tauri command |
 | [ADR-FE-001](docs/adr/fe/001-fe-stack.md) | Frontend — SvelteKit 5 + Monaco + Zod + Vitest |
 | [ADR-FE-002](docs/adr/fe/002-fsd-architecture.md) | Frontend structure — Feature-Sliced Design |
 | [ADR-FE-003](docs/adr/fe/003-css-bem.md) | Frontend CSS — BEM with `c-` (component) and `l-` (layout) prefixes |
@@ -100,7 +101,7 @@ Specs, plans, and tasks live in `.specify/`. Use these slash commands in order:
 For additional context about the current feature being built, read the current plan in `.specify/`.
 
 <!-- SPECKIT START -->
-**Current feature plan**: [specs/002-package-binding-state/plan.md](specs/002-package-binding-state/plan.md)
+**Current feature plan**: [specs/003-package-manager-widget/plan.md](specs/003-package-manager-widget/plan.md)
 <!-- SPECKIT END -->
 
 ## Coding conventions
