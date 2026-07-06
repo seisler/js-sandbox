@@ -18,6 +18,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Fetch full history + tag objects so the annotated tag's message
+          # is available to use as the release title/description.
+          fetch-depth: 0
 
       - name: Parse version from tag
         id: parse-version
@@ -34,24 +38,45 @@ jobs:
             echo "is_prerelease=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Create draft release with generated notes
+      - name: Create draft release from tag message
         id: create-release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Build gh release create command
-          RELEASE_CMD="gh release create ${{ github.ref_name }} --draft --title '${{ github.ref_name }}' --generate-notes"
+          TAG="${{ github.ref_name }}"
 
-          # Add prerelease flag if needed
-          if [[ "${{ steps.parse-version.outputs.is_prerelease }}" == "true" ]]; then
-            RELEASE_CMD="${RELEASE_CMD} --prerelease"
+          # Make sure the annotated tag object itself is present locally.
+          git fetch --tags --force
+
+          # Assemble the gh args in an array to avoid quoting issues with
+          # multi-line release notes.
+          ARGS=("$TAG" --draft)
+
+          # An annotated tag has objecttype 'tag' and carries a message; a
+          # lightweight tag has objecttype 'commit' and no message of its own.
+          TAG_TYPE=$(git for-each-ref "refs/tags/${TAG}" --format='%(objecttype)')
+          if [ "$TAG_TYPE" = "tag" ]; then
+            # First line of the tag message is the title, the rest is the body.
+            git for-each-ref "refs/tags/${TAG}" --format='%(contents:subject)' > title.txt
+            git for-each-ref "refs/tags/${TAG}" --format='%(contents:body)' > notes.txt
+            ARGS+=(--title "$(cat title.txt)" --notes-file notes.txt)
+          else
+            # Lightweight tag: no message to use, fall back to auto-generated
+            # notes so the release body is never empty.
+            echo "::warning::Tag ${TAG} is lightweight (no message); falling back to auto-generated notes. Use 'git tag -a' to set a custom title/description."
+            ARGS+=(--title "$TAG" --generate-notes)
           fi
 
-          # Create the release (ignore error if it already exists from a retry)
-          ${RELEASE_CMD} || gh release delete ${{ github.ref_name }} --yes && ${RELEASE_CMD}
+          # Mark alpha/beta/rc tags as prerelease.
+          if [ "${{ steps.parse-version.outputs.is_prerelease }}" = "true" ]; then
+            ARGS+=(--prerelease)
+          fi
 
-          # Fetch and output the release ID
-          RELEASE_ID=$(gh release view ${{ github.ref_name }} --json databaseId --jq .databaseId)
+          # Create the release; if a draft already exists from a re-run, replace it.
+          gh release create "${ARGS[@]}" || { gh release delete "$TAG" --yes; gh release create "${ARGS[@]}"; }
+
+          # Fetch and output the release ID for the build jobs to attach assets to.
+          RELEASE_ID=$(gh release view "$TAG" --json databaseId --jq .databaseId)
           echo "release_id=${RELEASE_ID}" >> $GITHUB_OUTPUT
 
   build:
