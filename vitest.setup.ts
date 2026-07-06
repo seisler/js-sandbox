@@ -8,3 +8,12 @@ Element.prototype.animate = () => ({
   onfinish: null,
   oncancel: null,
 }) as unknown as Animation;
+
+// jsdom does not implement the native <dialog> modal methods
+HTMLDialogElement.prototype.showModal = function showModal(this: HTMLDialogElement) {
+  this.open = true;
+};
+HTMLDialogElement.prototype.close = function close(this: HTMLDialogElement) {
+  this.open = false;
+  this.dispatchEvent(new Event('close'));
+};
