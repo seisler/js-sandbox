@@ -1,13 +1,13 @@
 <script lang="ts">
   import { Editor } from '$widgets/Editor';
-  import { ResultsConsole } from '$widgets/ResultsConsole';
+  import { Panel } from '$widgets/Panel';
 </script>
 
 <section class="l-editor">
   <Editor />
 </section>
-<aside class="l-console c-console">
-  <ResultsConsole />
+<aside class="l-panel c-panel">
+  <Panel />
 </aside>
 
 <style>
@@ -27,14 +27,14 @@
     width: 70%;
   }
 
-  .l-console {
+  .l-panel {
     display: flex;
     flex-direction: column;
     padding-left: 0.2rem;
     width: 40%;
   }
 
-  .c-console {
+  .c-panel {
     color: var(--clr-txt-main);
     background-color: var(--clr-bg-main);
   }

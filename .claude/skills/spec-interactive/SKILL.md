@@ -23,7 +23,7 @@ This skill walks through the full speckit pipeline step by step:
 5. **Tasks** — break the plan into actionable tasks
 6. **Implement** — execute the tasks (optional, confirm before starting)
 
-At each gate the user must confirm before the next step runs. This prevents runaway automation and keeps the user in control of how far the pipeline goes.
+At each gate the user must confirm before the next step runs, via the `AskUserQuestion` tool (clickable options — never a typed "go"/"stop"). This prevents runaway automation and keeps the user in control of how far the pipeline goes.
 
 ---
 
@@ -49,17 +49,15 @@ Check whether `.specify/memory/constitution.md` exists.
 
   Then invoke the `speckit-constitution` skill and wait for it to complete.
 
-After this step, print the gate:
+After this step, call `AskUserQuestion` with:
 
-```
-─────────────────────────────────────
-✓ Step 1 complete: Constitution ready
-  Next → Specify: write the feature spec
-  Type "go" to continue, or "stop" to exit.
-─────────────────────────────────────
-```
+- `question`: "Step 1 complete — constitution ready. Continue to Specify (write the feature spec)?"
+- `header`: "Step 1 gate"
+- `options`:
+  - label: "Continue to Specify", description: "Proceed and write the feature spec from the description."
+  - label: "Stop", description: "Exit the pipeline here. Nothing further is generated."
 
-Wait for user confirmation before proceeding.
+Branch on the selected label: "Continue to Specify" → Step 2. "Stop" → Completion Report.
 
 ---
 
@@ -69,40 +67,36 @@ Invoke the `speckit-specify` skill, passing the feature description from Step 0 
 
 Wait for `speckit-specify` to complete fully (including any clarification questions it surfaces internally).
 
-After this step, print the gate:
+After this step, call `AskUserQuestion` with:
 
-```
-─────────────────────────────────────
-✓ Step 2 complete: Spec written
-  File: <SPEC_FILE from speckit-specify output>
-  Next → Clarify: resolve open questions in the spec
-  Type "go" to continue, "skip" to jump to Plan, or "stop" to exit.
-─────────────────────────────────────
-```
+- `question`: "Step 2 complete — spec written (<SPEC_FILE from speckit-specify output>). What next?"
+- `header`: "Step 2 gate"
+- `options`:
+  - label: "Continue to Clarify", description: "Resolve open questions in the spec before planning."
+  - label: "Skip to Plan", description: "Bypass clarification and jump straight to plan generation."
+  - label: "Stop", description: "Exit the pipeline here."
 
-Wait for user confirmation before proceeding.
+Branch on the selected label: "Continue to Clarify" → Step 3. "Skip to Plan" → Step 4 (skip Step 3). "Stop" → Completion Report.
 
 ---
 
 ## Step 3 — Clarify
 
-If the user typed "skip" at Step 2's gate, skip this step and go to Step 4.
+(Only reached if the user chose "Continue to Clarify" at Step 2's gate.)
 
-Otherwise invoke the `speckit-clarify` skill.
+Invoke the `speckit-clarify` skill.
 
 Wait for `speckit-clarify` to complete fully, including any back-and-forth questions it asks the user.
 
-After this step, print the gate:
+After this step, call `AskUserQuestion` with:
 
-```
-─────────────────────────────────────
-✓ Step 3 complete: Spec clarified
-  Next → Plan: generate the implementation plan
-  Type "go" to continue, or "stop" to exit.
-─────────────────────────────────────
-```
+- `question`: "Step 3 complete — spec clarified. Continue to Plan (generate the implementation plan)?"
+- `header`: "Step 3 gate"
+- `options`:
+  - label: "Continue to Plan", description: "Proceed to generate the implementation plan."
+  - label: "Stop", description: "Exit the pipeline here."
 
-Wait for user confirmation before proceeding.
+Branch on the selected label: "Continue to Plan" → Step 4. "Stop" → Completion Report.
 
 ---
 
@@ -112,18 +106,15 @@ Invoke the `speckit-plan` skill.
 
 Wait for `speckit-plan` to complete fully.
 
-After this step, print the gate:
+After this step, call `AskUserQuestion` with:
 
-```
-─────────────────────────────────────
-✓ Step 4 complete: Plan generated
-  File: <plan.md path>
-  Next → Tasks: break the plan into actionable tasks
-  Type "go" to continue, or "stop" to exit.
-─────────────────────────────────────
-```
+- `question`: "Step 4 complete — plan generated (<plan.md path>). Continue to Tasks (break the plan into actionable tasks)?"
+- `header`: "Step 4 gate"
+- `options`:
+  - label: "Continue to Tasks", description: "Proceed to break the plan into actionable tasks."
+  - label: "Stop", description: "Exit the pipeline here."
 
-Wait for user confirmation before proceeding.
+Branch on the selected label: "Continue to Tasks" → Step 5. "Stop" → Completion Report.
 
 ---
 
@@ -133,19 +124,15 @@ Invoke the `speckit-tasks` skill.
 
 Wait for `speckit-tasks` to complete fully.
 
-After this step, print the gate:
+After this step, call `AskUserQuestion` with:
 
-```
-─────────────────────────────────────
-✓ Step 5 complete: Tasks generated
-  File: <tasks.md path>
-  Next → Implement: execute all tasks (this may take a while)
-  Type "go" to start implementation, or "stop" to exit.
-  ⚠ Implementation runs autonomously — confirm only when ready.
-─────────────────────────────────────
-```
+- `question`: "Step 5 complete — tasks generated (<tasks.md path>). Start implementation? This runs autonomously — confirm only when ready."
+- `header`: "Step 5 gate"
+- `options`:
+  - label: "Start implementation", description: "Execute all generated tasks now. Runs autonomously once started."
+  - label: "Stop", description: "Exit the pipeline here without implementing yet."
 
-Wait for user confirmation before proceeding.
+Branch on the selected label: "Start implementation" → Step 6. "Stop" → Completion Report.
 
 ---
 
@@ -177,12 +164,13 @@ If the user stopped early, list which steps were completed and which were skippe
 
 ## Behavior Rules
 
-- **One step at a time** — never start the next step without an explicit "go" from the user.
-- **"stop" exits cleanly** — print the completion report showing how far the pipeline reached, then stop.
-- **"skip" is only valid at Step 2's gate** (to bypass Clarify). At all other gates only "go" or "stop" are valid; if the user types anything else, re-prompt.
-- **Never re-run a completed step** — if the user types "go" multiple times, do not repeat the current step.
+- **One step at a time** — never start the next step without an explicit confirming selection from the user via `AskUserQuestion`.
+- **Clickable gates, not typed commands** — every gate is an `AskUserQuestion` call with labeled options ("Continue to …", "Stop", and "Skip to Plan" where applicable). Never ask the user to type "go"/"stop"/"skip".
+- **"Stop" exits cleanly** — print the completion report showing how far the pipeline reached, then stop.
+- **"Skip to Plan" is only offered at Step 2's gate** (to bypass Clarify). No other gate offers a skip option.
+- **Never re-run a completed step** — each gate fires exactly once per step; a completed step is not repeated.
 - **Pass-through** — each sub-skill handles its own logic and user interaction. Do not duplicate or override their behavior.
-- **Gate text is literal** — print the gate blocks exactly as shown (substituting file paths). Do not summarize or shorten them.
+- **Gate content is literal** — use the exact `question`/`header`/`options` text specified per step (substituting file paths). Do not summarize or shorten it.
 
 ## Done When
 
