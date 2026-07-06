@@ -1,0 +1,111 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      release_id: ${{ steps.create-release.outputs.release_id }}
+      app_version: ${{ steps.parse-version.outputs.version }}
+      is_prerelease: ${{ steps.parse-version.outputs.is_prerelease }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse version from tag
+        id: parse-version
+        run: |
+          # Strip leading 'v' from tag name (e.g. v1.0.0-alpha.1 → 1.0.0-alpha.1)
+          VERSION="${{ github.ref_name }}"
+          VERSION="${VERSION#v}"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+          # Check if prerelease (contains a hyphen)
+          if [[ "${VERSION}" =~ - ]]; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create draft release with generated notes
+        id: create-release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Build gh release create command
+          RELEASE_CMD="gh release create ${{ github.ref_name }} --draft --title '${{ github.ref_name }}' --generate-notes"
+
+          # Add prerelease flag if needed
+          if [[ "${{ steps.parse-version.outputs.is_prerelease }}" == "true" ]]; then
+            RELEASE_CMD="${RELEASE_CMD} --prerelease"
+          fi
+
+          # Create the release (ignore error if it already exists from a retry)
+          ${RELEASE_CMD} || gh release delete ${{ github.ref_name }} --yes && ${RELEASE_CMD}
+
+          # Fetch and output the release ID
+          RELEASE_ID=$(gh release view ${{ github.ref_name }} --json databaseId --jq .databaseId)
+          echo "release_id=${RELEASE_ID}" >> $GITHUB_OUTPUT
+
+  build:
+    needs: prepare
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux system dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Inject version into package.json
+        run: npm version ${{ needs.prepare.outputs.app_version }} --no-git-tag-version --allow-same-version
+
+      - name: Inject version into Cargo.toml
+        run: |
+          if [ "${{ matrix.os }}" = "macos-latest" ]; then
+            # macOS uses BSD sed, requires -i ''
+            sed -i '' 's/version = "0.1.0"/version = "${{ needs.prepare.outputs.app_version }}"/' src-tauri/Cargo.toml
+          else
+            # Linux and Windows use GNU sed
+            sed -i 's/version = "0.1.0"/version = "${{ needs.prepare.outputs.app_version }}"/' src-tauri/Cargo.toml
+          fi
+
+      - name: Inject version into tauri.conf.json
+        run: |
+          jq --arg v "${{ needs.prepare.outputs.app_version }}" '.version = $v' src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp
+          mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseId: ${{ needs.prepare.outputs.release_id }}

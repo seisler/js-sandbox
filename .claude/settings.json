@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(bash .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks)"
+      "Bash(bash .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks)",
+      "Bash(bash)",
+      "Bash(git commit -m 'ci: add GitHub Actions release pipeline for tag-triggered builds *)"
     ]
   }
 }
