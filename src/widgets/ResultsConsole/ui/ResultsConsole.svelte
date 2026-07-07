@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PlayButton } from '$features/run-code';
-  import { runCodeState } from '$features/run-code';
+  import { editorState } from '$shared/model';
 </script>
 
 <PlayButton />

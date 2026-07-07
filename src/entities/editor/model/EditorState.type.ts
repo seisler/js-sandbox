@@ -1,3 +1,5 @@
 export type EditorState = {
-  code: string,
+  code: string;
+  result: string;
+  isRunning: boolean;
 }
