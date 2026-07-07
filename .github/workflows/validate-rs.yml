@@ -1,12 +1,9 @@
 name: Validate Rust
 
 on:
-  push:
+  pull_request:
     branches:
-      - 'feature/**'
-      - 'refactor/**'
-      - 'bugfix/**'
-      - 'hotfix/**'
+      - dev
     paths:
       - 'src-tauri/**'
 
