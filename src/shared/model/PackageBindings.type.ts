@@ -1,5 +1,5 @@
 import type { z } from 'zod';
-import type { PackageBindingSchema } from '$shared/config';
+import type { PackageBindingSchema } from '$entities/editor/config';
 
 export type PackageBinding = z.infer<typeof PackageBindingSchema>;
 
