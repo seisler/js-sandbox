@@ -43,52 +43,56 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
           TAG="${{ github.ref_name }}"
+          REPO="${{ github.repository }}"
 
           # Make sure the annotated tag object itself is present locally.
           git fetch --tags --force
 
-          # Assemble the gh args in an array to avoid quoting issues with
-          # multi-line release notes.
-          ARGS=("$TAG" --draft)
-
-          # An annotated tag has objecttype 'tag' and carries a message; a
-          # lightweight tag has objecttype 'commit' and no message of its own.
-          TAG_TYPE=$(git for-each-ref "refs/tags/${TAG}" --format='%(objecttype)')
-          if [ "$TAG_TYPE" = "tag" ]; then
-            # First line of the tag message is the title, the rest is the body.
-            git for-each-ref "refs/tags/${TAG}" --format='%(contents:subject)' > title.txt
-            git for-each-ref "refs/tags/${TAG}" --format='%(contents:body)' > notes.txt
-            ARGS+=(--title "$(cat title.txt)" --notes-file notes.txt)
-          else
-            # Lightweight tag: no message to use, fall back to auto-generated
-            # notes so the release body is never empty.
-            echo "::warning::Tag ${TAG} is lightweight (no message); falling back to auto-generated notes. Use 'git tag -a' to set a custom title/description."
-            ARGS+=(--title "$TAG" --generate-notes)
-          fi
-
-          # Mark alpha/beta/rc tags as prerelease.
-          if [ "${{ steps.parse-version.outputs.is_prerelease }}" = "true" ]; then
-            ARGS+=(--prerelease)
-          fi
-
           # Remove ANY pre-existing releases for this tag (including leftover
           # drafts from prior runs). Draft releases aren't linked to the git
-          # tag, so we match on tag_name via the API rather than `gh release`.
-          REPO="${{ github.repository }}"
-          for id in $(gh api "repos/${REPO}/releases" --jq ".[] | select(.tag_name==\"$TAG\") | .id"); do
+          # tag, so we match on tag_name via the API (paginated) rather than
+          # `gh release`.
+          for id in $(gh api --paginate "repos/${REPO}/releases" --jq ".[] | select(.tag_name==\"$TAG\") | .id"); do
             echo "Deleting existing release $id for tag $TAG"
             gh api -X DELETE "repos/${REPO}/releases/${id}"
           done
 
-          # Create the single draft release.
-          gh release create "${ARGS[@]}"
+          # Prerelease flag from the tag's semver suffix (e.g. -alpha.1).
+          PRERELEASE=false
+          if [ "${{ steps.parse-version.outputs.is_prerelease }}" = "true" ]; then
+            PRERELEASE=true
+          fi
 
-          # Retrieve the numeric release ID from the API by tag_name. This works
-          # for drafts (unlike `gh release view <tag>`), so the build jobs can
-          # attach their installers to THIS release instead of creating their own.
-          RELEASE_ID=$(gh api "repos/${REPO}/releases" --jq "[.[] | select(.tag_name==\"$TAG\")][0].id")
-          echo "Resolved release_id=${RELEASE_ID}"
+          # Title/notes come from the annotated tag message: first line = title,
+          # the rest = body. A lightweight tag has no message, so fall back to
+          # GitHub's auto-generated notes.
+          TAG_TYPE=$(git for-each-ref "refs/tags/${TAG}" --format='%(objecttype)')
+          if [ "$TAG_TYPE" = "tag" ]; then
+            TITLE=$(git for-each-ref "refs/tags/${TAG}" --format='%(contents:subject)')
+            BODY=$(git for-each-ref "refs/tags/${TAG}" --format='%(contents:body)')
+            RELEASE_ID=$(gh api "repos/${REPO}/releases" -X POST \
+              -f tag_name="$TAG" \
+              -f name="$TITLE" \
+              -f body="$BODY" \
+              -F draft=true \
+              -F prerelease="$PRERELEASE" \
+              --jq '.id')
+          else
+            echo "::warning::Tag ${TAG} is lightweight (no message); using auto-generated notes. Use 'git tag -a' to set a custom title/description."
+            RELEASE_ID=$(gh api "repos/${REPO}/releases" -X POST \
+              -f tag_name="$TAG" \
+              -f name="$TAG" \
+              -F draft=true \
+              -F prerelease="$PRERELEASE" \
+              -F generate_release_notes=true \
+              --jq '.id')
+          fi
+
+          # The ID comes straight from the create response — no lookup, so it is
+          # never empty and the build jobs always attach to THIS release.
+          echo "Created release_id=${RELEASE_ID}"
           echo "release_id=${RELEASE_ID}" >> "$GITHUB_OUTPUT"
 
   build:
