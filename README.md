@@ -2,13 +2,39 @@
 
 A desktop JavaScript/TypeScript sandbox IDE — write and run code instantly, without a browser or an online tool.
 
-> **Status:** Early development — not yet available for download. Follow the project for updates.
+> **Status:** Released — **v0.1.0** available for Windows, macOS, and Linux.
+> **[⬇ Download the latest release](https://github.com/seisler/js-sandbox/releases/latest)**
 
 ---
 
 ## Why
 
-Existing online sandboxes require a browser tab and an internet connection and pay for subscriptions when add npm packages. This is a native desktop app — lightweight, offline-first, with external dependencies support, and fast.
+Existing online sandboxes require a browser tab and an internet connection, and often paywall npm packages behind a subscription. This is a native desktop app — lightweight, offline-first, with external dependency support, and fast.
+
+---
+
+## Download & Install
+
+Grab the installer for your platform from the [**latest release**](https://github.com/seisler/js-sandbox/releases/latest):
+
+| Platform | File |
+|---|---|
+| Windows | `.exe` (NSIS installer) |
+| macOS | `.dmg` |
+| Linux | `.deb` |
+
+> **Note:** builds are not yet code-signed, so on first launch you may see a warning:
+> - **Windows** — SmartScreen: click *More info → Run anyway*.
+> - **macOS** — Gatekeeper: right-click the app → *Open*, then confirm.
+
+---
+
+## Features
+
+- **Instant execution** — write JS/TS in a Monaco editor and run it in an isolated V8 runtime on the Rust backend.
+- **npm packages** — search the npm registry live, add packages, and use them in your code.
+- **Native & offline-first** — no browser tab, no account, works without an internet connection (except live npm search).
+- **Configurable editor** — themes, fonts, and editor preferences.
 
 ---
 
@@ -17,6 +43,7 @@ Existing online sandboxes require a browser tab and an internet connection and p
 | Layer | Technology |
 |---|---|
 | Desktop runtime | [Tauri v2](https://tauri.app/) (Rust) |
+| Code execution | [deno_core](https://crates.io/crates/deno_core) (sandboxed V8) |
 | Frontend | [SvelteKit](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/) |
 | Language | TypeScript (strict) |
 | Editor | [Monaco Editor](https://microsoft.github.io/monaco-editor/) |
@@ -49,7 +76,7 @@ src/
   shared/        # Reusable primitives (ui, model, config, styles)
   pages/         # Page components
   routes/        # SvelteKit routing (app entry point)
-src-tauri/       # Rust backend (Tauri commands, code execution)
+src-tauri/       # Rust backend (Tauri commands, sandboxed code execution)
 ```
 
 ---
@@ -68,12 +95,19 @@ npm run test           # Vitest unit tests
 
 ---
 
+## Releases
+
+Releases are built automatically by a GitHub Actions pipeline. Pushing a `v*` tag builds native installers for Windows, macOS, and Linux in parallel and attaches them to a draft GitHub Release for review before publishing. See [`.github/workflows/release.yml`](.github/workflows/release.yml).
+
+---
+
 ## Roadmap
 
-- [ ] Code execution via Rust backend
-- [ ] npm packages feature — add/remove packages and inject their types into Monaco Editor
-- [ ] Expanded test coverage
+- [x] Code execution via Rust backend
+- [x] npm packages feature — add/remove packages and use them in code
+- [x] Automated release pipeline with cross-platform builds
+- [ ] Inject npm package types into Monaco Editor for autocompletion
+- [ ] Expanded test coverage and end-to-end testing
 - [ ] Full accessibility audit — keyboard and arrow navigation for menus
 - [ ] Hard memory limit for the JS engine via V8 OOM callback
-- [ ] End-to-end testing
-- [ ] Automated release pipeline with cross-platform builds
+- [ ] Code signing / notarization for signed installers
