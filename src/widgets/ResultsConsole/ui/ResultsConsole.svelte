@@ -1,11 +1,9 @@
 <script lang="ts">
   import { PlayButton } from '$features/run-code';
-  import { editorState } from '$shared/model';
+  import { runCodeState } from '$features/run-code';
 </script>
 
-<PlayButton
-  isDisabled={editorState.isRunning}
-/>
+<PlayButton />
 <section class="l-result c-result">
   { editorState.result }
 </section>

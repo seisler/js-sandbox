@@ -1,5 +1,5 @@
 import type { Component } from 'svelte';
-import type { MenuItem } from '$shared/ui/Menu/Menu.types';
+import type { MenuItem } from '$shared/ui/Menu';
 
 export enum EToolbarItem {
   toolMenu = 'tool-menu',

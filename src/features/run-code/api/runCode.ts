@@ -2,8 +2,8 @@ import { invoke } from '@tauri-apps/api/core';
 import { editorState, packageBindingsState } from '$shared/model';
 
 export const runCode = () => {
-  if (editorState.isRunning) {
-    editorState.result = 'Executing code...';
+  if (runCodeState.isRunning) {
+    runCodeState.result = 'Executing code...';
     return;
   };
 
@@ -13,6 +13,6 @@ export const runCode = () => {
     .then(res => editorState.result = res)
     .catch(err => editorState.result = err)
     .finally(() => {
-      editorState.isRunning = false;
+      runCodeState.isRunning = false;
     });
 };

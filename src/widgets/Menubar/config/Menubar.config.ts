@@ -1,4 +1,4 @@
-import { EPreferencesSection, preferencesState } from '$shared/model';
+import { preferencesDialogState } from '$features/open-preferences';
 import { EMenubarItem, type MenubarConfig } from '../ui/Menubar.type';
 
 export const menuConfig: MenubarConfig = Object.freeze({
@@ -9,17 +9,17 @@ export const menuConfig: MenubarConfig = Object.freeze({
       {
         id: 'save',
         label: 'Save file',
-        onclick: () => preferencesState.open(EPreferencesSection.landing),
+        onclick: () => preferencesDialogState.open(),
       },
       {
         id: 'save-as',
         label: 'Save file as...',
-        onclick: () => preferencesState.open(EPreferencesSection.landing),
+        onclick: () => preferencesDialogState.open(),
       },
       {
         id: 'preferences',
         label: 'Preferences',
-        onclick: () => preferencesState.open(EPreferencesSection.landing),
+        onclick: () => preferencesDialogState.open(),
       }
     ]
   },
@@ -30,12 +30,12 @@ export const menuConfig: MenubarConfig = Object.freeze({
       {
         id: 'go-to-definition',
         label: 'Go to definition',
-        onclick: () => preferencesState.open(EPreferencesSection.landing),
+        onclick: () => preferencesDialogState.open(),
       },
       {
         id: 'go-to-declaration',
         label: 'Go to declaration',
-        onclick: () => preferencesState.open(EPreferencesSection.landing),
+        onclick: () => preferencesDialogState.open(),
       }
     ]
   },
@@ -46,12 +46,12 @@ export const menuConfig: MenubarConfig = Object.freeze({
       {
         id: 'update-check',
         label: 'Check for updates...',
-        onclick: () => preferencesState.open(EPreferencesSection.landing),
+        onclick: () => preferencesDialogState.open(),
       },
       {
         id: 'about',
         label: 'About',
-        onclick: () => preferencesState.open(EPreferencesSection.landing),
+        onclick: () => preferencesDialogState.open(),
       }
     ]
   },
