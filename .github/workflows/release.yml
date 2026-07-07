@@ -96,6 +96,7 @@ jobs:
       - name: Install Linux system dependencies
         if: matrix.os == 'ubuntu-latest'
         run: |
+          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
 
@@ -127,6 +128,7 @@ jobs:
           fi
 
       - name: Inject version into tauri.conf.json
+        shell: bash
         run: |
           jq --arg v "${{ needs.prepare.outputs.app_version }}" '.version = $v' src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp
           mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
