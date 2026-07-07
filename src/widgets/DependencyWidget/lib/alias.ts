@@ -1,4 +1,4 @@
-import { PackageBindingSchema } from '$shared/config';
+import { PackageBindingSchema } from '$entities/editor/config';
 
 /**
  * Whether an alias is acceptable to commit. Delegates the "non-empty" rule to
