@@ -96,8 +96,8 @@ jobs:
       - name: Install Linux system dependencies
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
-          sudo apt-get update
+          sudo rm -f /etc/apt/sources.list.d/*.list
+          sudo apt-get update 2>&1 | grep -i error || true
           sudo apt-get install -y libwebkit2gtk-4.1-dev libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
 
       - uses: actions/setup-node@v4
@@ -117,6 +117,7 @@ jobs:
         run: npm version ${{ needs.prepare.outputs.app_version }} --no-git-tag-version --allow-same-version
 
       - name: Inject version into Cargo.toml
+        shell: bash
         run: |
           if [ "${{ matrix.os }}" = "macos-latest" ]; then
             # macOS uses BSD sed, requires -i ''
