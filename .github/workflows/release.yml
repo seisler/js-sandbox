@@ -72,12 +72,24 @@ jobs:
             ARGS+=(--prerelease)
           fi
 
-          # Create the release; if a draft already exists from a re-run, replace it.
-          gh release create "${ARGS[@]}" || { gh release delete "$TAG" --yes; gh release create "${ARGS[@]}"; }
+          # Remove ANY pre-existing releases for this tag (including leftover
+          # drafts from prior runs). Draft releases aren't linked to the git
+          # tag, so we match on tag_name via the API rather than `gh release`.
+          REPO="${{ github.repository }}"
+          for id in $(gh api "repos/${REPO}/releases" --jq ".[] | select(.tag_name==\"$TAG\") | .id"); do
+            echo "Deleting existing release $id for tag $TAG"
+            gh api -X DELETE "repos/${REPO}/releases/${id}"
+          done
 
-          # Fetch and output the release ID for the build jobs to attach assets to.
-          RELEASE_ID=$(gh release view "$TAG" --json databaseId --jq .databaseId)
-          echo "release_id=${RELEASE_ID}" >> $GITHUB_OUTPUT
+          # Create the single draft release.
+          gh release create "${ARGS[@]}"
+
+          # Retrieve the numeric release ID from the API by tag_name. This works
+          # for drafts (unlike `gh release view <tag>`), so the build jobs can
+          # attach their installers to THIS release instead of creating their own.
+          RELEASE_ID=$(gh api "repos/${REPO}/releases" --jq "[.[] | select(.tag_name==\"$TAG\")][0].id")
+          echo "Resolved release_id=${RELEASE_ID}"
+          echo "release_id=${RELEASE_ID}" >> "$GITHUB_OUTPUT"
 
   build:
     needs: prepare
